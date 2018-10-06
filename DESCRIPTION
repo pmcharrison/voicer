@@ -12,3 +12,5 @@ Suggests:
 RoxygenNote: 6.1.0
 Imports: 
     zeallot
+URL: https://github.com/pmcharrison/voiceChord
+BugReports: https://github.com/pmcharrison/voiceChord/issues
