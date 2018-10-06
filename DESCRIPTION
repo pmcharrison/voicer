@@ -1,0 +1,14 @@
+Package: voiceChord
+Title: Finding Optimal Voicings for Chord Sequences
+Version: 0.0.0.9000
+Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
+Description: Chord sequences can be voiced in different ways, some better than others. This package tries to find optimal voicings for chord sequences.
+Depends: R (>= 3.4.0)
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat
+RoxygenNote: 6.1.0
+Imports: 
+    zeallot
