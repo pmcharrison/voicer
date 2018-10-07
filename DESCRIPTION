@@ -4,13 +4,13 @@ Version: 0.0.0.9000
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
 Description: Chord sequences can be voiced in different ways, some better than others. This package tries to find optimal voicings for chord sequences.
 Depends: R (>= 3.4.0)
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
 RoxygenNote: 6.1.0
-Imports: 
-    zeallot
+Imports: seqopt
 URL: https://github.com/pmcharrison/voiceChord
 BugReports: https://github.com/pmcharrison/voiceChord/issues
+Remotes: pmcharrison/seqopt

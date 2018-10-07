@@ -1,0 +1,7 @@
+---
+output: github_document
+---
+
+# voiceChord: Finding optimal voicings for chord sequences
+
+Status: **pre-alpha**
