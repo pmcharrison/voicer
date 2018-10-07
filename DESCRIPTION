@@ -1,4 +1,4 @@
-Package: voiceChord
+Package: voiceR
 Title: Finding Optimal Voicings for Chord Sequences
 Version: 0.0.0.9000
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
@@ -11,6 +11,6 @@ Suggests:
     testthat
 RoxygenNote: 6.1.0
 Imports: seqopt
-URL: https://github.com/pmcharrison/voiceChord
-BugReports: https://github.com/pmcharrison/voiceChord/issues
+URL: https://github.com/pmcharrison/voiceR
+BugReports: https://github.com/pmcharrison/voiceR/issues
 Remotes: pmcharrison/seqopt

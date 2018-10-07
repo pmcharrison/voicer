@@ -1,9 +1,11 @@
-voice_chord_cost <- function(
+#' @export
+chord_cost_funs <- function(
+  cache = TRUE,
   roughness_weight = 20,
   roughness_method = "hutch",
   melody_dist_weight = 10,
   vl_dist_weight = 10,
-  vl_dist_norm = "taxicab"
+  vl_dist_norm = "taxicab",
   mean_pitch = 60,
   mean_pitch_weight = 10,
   max_pitch_boundary = 80,
@@ -15,7 +17,8 @@ voice_chord_cost <- function(
   roughness = seqopt::cost_fun(context_sensitive = FALSE, f = function(x) {
     HarmonyDissonance::get_roughness(frequency = x,
                                      frequency_scale = "midi",
-                                     method = "hutch")
+                                     method = "hutch",
+                                     cache = TRUE)
   }, weight = roughness_weight),
 
   melody_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
@@ -23,8 +26,8 @@ voice_chord_cost <- function(
   }, weight = melody_dist_weight),
 
   vl_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
-    vldist::vl_dist(context, x, elt_type = "pitch", norm = vl_dist_norm)
-  }, weight = 10)
+    minVL::vl_dist(context, x, elt_type = "pitch", norm = vl_dist_norm)
+  }, weight = 10),
 
   mean_pitch = seqopt::cost_fun(context_sensitive = FALSE, f = function(x) {
     abs(mean(x) - mean_pitch)
