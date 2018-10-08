@@ -7,7 +7,7 @@ revoice_midi_chord_seq <- function(x,
   y <- all_midi_chord_seq_revoicings(x = x,
                                      min_octave = min_octave,
                                      max_octave = max_octave)
-  if (any(purrr::map_lgl(y, function(z) length(z) == 1L)))
+  if (any(purrr::map_lgl(y, function(z) length(z) == 0L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y, cost_funs = cost_funs, progress = progress)
 }
