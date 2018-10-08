@@ -1,8 +1,9 @@
+#' @export
 revoice_midi_chord_seq <- function(x,
                                    min_octave = -1L,
                                    max_octave = 0L,
                                    cost_funs = chord_cost_funs(),
-                                   progress = TRUE) {
+                                   progress = interactive()) {
   y <- all_midi_chord_seq_revoicings(x = x,
                                      min_octave = min_octave,
                                      max_octave = max_octave)

@@ -10,7 +10,10 @@ LazyData: true
 Suggests: 
     testthat
 RoxygenNote: 6.1.0
-Imports: seqopt
+Imports: 
+    seqopt,
+    magrittr,
+    gtools
 URL: https://github.com/pmcharrison/voiceR
 BugReports: https://github.com/pmcharrison/voiceR/issues
 Remotes: pmcharrison/seqopt
