@@ -1,6 +1,6 @@
 #' @export
 chord_cost_funs <- function(
-  cache = TRUE,
+  memoise = TRUE,
   roughness_weight = 20,
   roughness_method = "hutch",
   melody_dist_weight = 10,
@@ -18,16 +18,16 @@ chord_cost_funs <- function(
     HarmonyDissonance::get_roughness(frequency = x,
                                      frequency_scale = "midi",
                                      method = "hutch",
-                                     cache = TRUE)
-  }, weight = roughness_weight),
+                                     cache = FALSE)
+  }, memoise = TRUE, weight = roughness_weight),
 
   melody_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
     abs(max(x) - max(context))
   }, weight = melody_dist_weight),
 
-  vl_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
-    minVL::vl_dist(context, x, elt_type = "pitch", norm = vl_dist_norm)
-  }, weight = 10),
+  min_vl_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(contexts, x) {
+    as.numeric(minVL::min_vl_dists(contexts, list(x), elt_type = "pitch", norm = vl_dist_norm))
+  }, memoise = TRUE, vectorised = TRUE, weight = 10),
 
   mean_pitch = seqopt::cost_fun(context_sensitive = FALSE, f = function(x) {
     abs(mean(x) - mean_pitch)
