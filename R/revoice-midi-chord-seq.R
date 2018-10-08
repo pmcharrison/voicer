@@ -28,14 +28,11 @@ all_midi_chord_revoicings <- function(x, min_octave, max_octave) {
   bass_pc <- pcs[1]
   octaves <- seq(from = min_octave, to = max_octave)
   gtools::permutations(n = length(octaves),
-                            r = length(pcs),
-                            v = 60L + 12L * octaves,
-                            repeats.allowed = TRUE) %>%
-    sweep(MARGIN = 2, STATS = pcs, FUN = "+") %>%
-    (function(y) purrr::map(seq_len(nrow(y)), function(i) sort(y[i, ]))) %>%
-    purrr::keep(.p = function(z) {
-      (z[1] %% 12 == bass_pc) &&
-        !anyDuplicated(z)
-    }) %>%
+                       r = length(pcs),
+                       v = 60L + 12L * octaves,
+                       repeats.allowed = TRUE) %>%
+    (function(y) purrr::map(seq_len(nrow(y)),
+                            function(i) sort(y[i, ] + pcs))) %>%
+    purrr::keep(function(z) (z[1] %% 12 == bass_pc) && !anyDuplicated(z)) %>%
     unique
 }
