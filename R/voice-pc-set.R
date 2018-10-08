@@ -10,9 +10,13 @@ voice_pc_set_seq <- function(x,
   checkmate::qassert(progress, "B1")
   stopifnot(min_octave <= max_octave)
 
-  possible_states <- purrr::map(x, function(pc_set) all_pc_set_voicings(
+  y <- purrr::map(x, function(pc_set) all_pc_set_voicings(
     pc_set, min_octave = min_octave, max_octave = max_octave))
-  seqopt::seq_opt(possible_states, cost_funs = cost_funs, progress = progress)
+
+  if (any(purrr::map_lgl(y, function(z) length(z) == 1L)))
+    stop("no legal revoicings found")
+
+  seqopt::seq_opt(y, cost_funs = cost_funs, progress = progress)
 }
 
 #' Pitch-class set voicings

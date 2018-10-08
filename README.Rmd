@@ -2,6 +2,9 @@
 output: github_document
 ---
 
-# voiceChord: Finding optimal voicings for chord sequences
+# voiceR v`r as.character(packageVersion("voiceR"))`
+
+Chord sequences can be voiced in different ways, some better than others.
+This package, `voiceR`, tries to find optimal voicings for chord sequences.
 
 Status: **pre-alpha**
