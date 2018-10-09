@@ -2,7 +2,7 @@
 voice_pc_set_seq <- function(x,
                              min_octave = -1L,
                              max_octave = 0L,
-                             cost_funs = chord_cost_funs(),
+                             cost_funs = voicer_cost_funs(),
                              progress = interactive()) {
   checkmate::qassert(x, "l")
   checkmate::qassert(min_octave, "X1")

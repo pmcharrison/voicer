@@ -3,7 +3,7 @@
 export("%>%")
 export(all_midi_chord_revoicings)
 export(all_pc_set_voicings)
-export(chord_cost_funs)
 export(revoice_midi_chord_seq)
 export(voice_pc_set_seq)
+export(voicer_cost_funs)
 importFrom(magrittr,"%>%")

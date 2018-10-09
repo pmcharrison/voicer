@@ -1,8 +1,9 @@
 #' @export
-chord_cost_funs <- function(
+voicer_cost_funs <- function(
   memoise = TRUE,
   roughness_weight = 20,
   roughness_method = "hutch",
+  parallels_weight = 50,
   melody_dist_weight = 10,
   vl_dist_weight = 10,
   vl_dist_norm = "taxicab",
@@ -20,6 +21,18 @@ chord_cost_funs <- function(
                                      method = "hutch",
                                      cache = FALSE)
   }, memoise = TRUE, weight = roughness_weight),
+
+  parallels = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
+    context_bass <- min(context)
+    context_treble <- max(context)
+    context_int <- context_treble - context_bass
+    if ((context_int %% 12) %in% c(0, 7)) {
+      next_bass <- min(x)
+      next_treble <- max(x)
+      next_int <- next_treble - next_bass
+      if (next_int == context_int) 1 else 0
+    } else 0
+  }, weight = parallels_weight),
 
   melody_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
     abs(max(x) - max(context))
