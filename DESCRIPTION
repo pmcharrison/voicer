@@ -1,4 +1,4 @@
-Package: voiceR
+Package: voicer
 Title: Finding Optimal Voicings for Chord Sequences
 Version: 0.0.0.9000
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
