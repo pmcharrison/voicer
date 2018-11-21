@@ -13,7 +13,8 @@ RoxygenNote: 6.1.0
 Imports: 
     seqopt (>= 0.1.0),
     magrittr (>= 1.5),
-    gtools (>= 3.8.1)
+    gtools (>= 3.8.1),
+    incon
 URL: https://github.com/pmcharrison/voiceR
 BugReports: https://github.com/pmcharrison/voiceR/issues
 Remotes: pmcharrison/seqopt

@@ -11,10 +11,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-# voiceR v`r as.character(packageVersion("voiceR"))`
+# voicer
 
 Chord sequences can be voiced in different ways, some better than others.
-This package, `voiceR`, tries to find optimal voicings for chord sequences.
+This package, `voicer`, tries to find optimal voicings for chord sequences.
 
 Status: **pre-alpha**
 
@@ -23,7 +23,7 @@ Status: **pre-alpha**
 `voice_pc_set_seq` finds the optimal voicing for a series of pitch class sets.
 
 ```{r, include = TRUE, echo = TRUE}
-library(voiceR)
+library(voicer)
 pc_sets <- list(c(0, 4, 7), c(0, 5, 9), c(2, 7, 11), c(0, 4, 7))
 voice_pc_set_seq(pc_sets)
 ```
