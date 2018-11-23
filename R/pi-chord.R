@@ -1,3 +1,4 @@
+#' @export
 voice.vec_pi_chord <- function(x, opt = voice_opt()) {
   if (any(purrr::map_lgl(x, function(z) length(z) == 0L)))
     stop("empty chords not permitted")
@@ -8,12 +9,10 @@ voice.vec_pi_chord <- function(x, opt = voice_opt()) {
     hutil::vec(type = "pi_chord")
 }
 
-#' @export
 all_voicings_vec_pi_chord <- function(x, opt) {
   purrr::map(x, function(y) all_voicings_pi_chord(y, opt))
 }
 
-#' @export
 all_voicings_pi_chord <- function(x, opt) {
   if (length(x) == 0L) stop("empty chords not permitted")
   x <- sort(x)

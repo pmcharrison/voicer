@@ -8,12 +8,10 @@ voice.vec_pc_chord <- function(x, opt = voice_opt()) {
     hutil::vec(type = "pi_chord")
 }
 
-#' @export
 all_voicings_vec_pc_chord <- function(x, opt) {
   purrr::map(x, function(y) all_voicings_pc_chord(y, opt))
 }
 
-#' @export
 all_voicings_pc_chord <- function(x, opt) {
   if (length(x) == 0L) stop("empty chords not permitted")
   bass_pc <- hutil::get_bass_pc(x)

@@ -9,7 +9,6 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
     hutil::vec(type = "pi_chord")
 }
 
-#' @export
 all_voicings_pc_set <- function(x, opt) {
   checkmate::qassert(x, "N[0,12)")
   if (length(x) == 0L) stop("empty pitch-class sets not permitted")
@@ -34,7 +33,6 @@ all_voicings_pc_set <- function(x, opt) {
   }) %>% unlist(recursive = FALSE)
 }
 
-#' @export
 all_voicings_pc_multiset <- function(x, opt) {
   checkmate::qassert(x, "N[0,12)")
   octaves <- seq(from = opt$min_octave, to = opt$max_octave)
@@ -47,27 +45,3 @@ all_voicings_pc_multiset <- function(x, opt) {
     unique %>%
     purrr::map(hutil::as.pi_chord)
 }
-
-#' #' Pitch-class set voicings
-#' #'
-#' #' Finds all possible voicings of a pitch-class set within a given octave range.
-#' #' @param pc_set Numeric vector; the pitch-class set to voice.
-#'
-#' #' @return A list of all possible voicings, expressed as numeric vectors
-#' #' of MIDI note numbers.
-#' #' @export
-#' all_pc_set_voicings <- function(pc_set, min_octave, max_octave) {
-#'   checkmate::qassert(pc_set, "N[0,12)")
-#'   checkmate::qassert(min_octave, "X1")
-#'   checkmate::qassert(max_octave, "X1")
-#'   stopifnot(min_octave <= max_octave,
-#'             !anyDuplicated(pc_set))
-#'
-#'   octaves <- seq(from = min_octave, to = max_octave)
-#'   spec <- gtools::permutations(n = length(octaves),
-#'                                r = length(pc_set),
-#'                                v = 60L + 12L * octaves,
-#'                                repeats.allowed = TRUE)
-#'   res <- sweep(x = spec, MARGIN = 2, STATS = pc_set, FUN = "+")
-#'   purrr::map(seq_len(nrow(res)), function(i) sort(res[i, ]))
-#' }
