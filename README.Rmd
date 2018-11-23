@@ -7,7 +7,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  include = TRUE,
+  echo = TRUE
 )
 ```
 
@@ -20,21 +22,72 @@ Status: **pre-alpha**
 
 ## Example usage
 
-`voice_pc_set_seq` finds the optimal voicing for a series of pitch class sets.
+`voice` is the main function to use.
+We pass `voice` vectors of chords as created by the `hutils` package.
+Important chord representations from the `hutils` package are:
 
-```{r, include = TRUE, echo = TRUE}
+- `pc_set()` - create a pitch-class set (unordered pitch classes from 0 to 11)
+- `pc_chord()` - create a pitch-class chord
+(a pitch-class set where the bass note is identified)
+- `pi_chord()` - create a pitch chord (pitches as MIDI note numbers)
+
+```{r}
+library(hutil)
+library(magrittr)
 library(voicer)
-pc_sets <- list(c(0, 4, 7), c(0, 5, 9), c(2, 7, 11), c(0, 4, 7))
-voice_pc_set_seq(pc_sets)
+
+pc_set(c(0, 4, 7))
+pc_chord(4, c(0, 4, 7))
+pi_chord(c(60, 64, 67))
 ```
 
-`revoice_midi_chord_seq` takes a sequence of MIDI chords as input and returns 
-an optimally revoiced sequence, ensuring that:
+Using the function `vec` from the `hutils` package, 
+we combine lists of chords into typed vectors.
 
-- the pitch class of the bass note is preserved;
-- any duplicated pitch classes are preserved.
-
-```{r, include = TRUE, echo = TRUE}
-midi <- list(c(60, 64, 67), c(60, 65, 69), c(62, 67, 611), c(60, 64, 67))
-revoice_midi_chord_seq(midi)
+```{r}
+x <- list(pc_set(c(0, 4, 7)), 
+          pc_set(c(0, 5, 9)),
+          pc_set(c(2, 7, 11)), 
+          pc_set(c(0, 4, 7))) %>% vec("pc_set")
+x
 ```
+
+We can then pass the resulting object to `voice`.
+
+```{r}
+y <- voice(x)
+y 
+as.list(y)
+```
+
+We can do the same for vectors of type `pc_chord` and `pi_chord`.
+
+```{r}
+list(pc_chord(0, c(4, 7)), 
+     pc_chord(9, c(0, 5)),
+     pc_chord(7, c(2, 11)), 
+     pc_chord(0, c(4, 7))) %>% 
+  vec("pc_chord") %>% 
+  voice() %>% 
+  as.list()
+```
+
+By default, revoicing chords of type `pi_chord` preserves
+the pitch-class of the bass note.
+To allow different inversions,
+you can first convert your `pi_chord` objects to `pc_set` objects.
+
+```{r}
+list(pi_chord(c(60, 64, 67)), 
+     pi_chord(c(60, 65, 69)),
+     pi_chord(c(62, 67, 71)), 
+     pi_chord(c(60, 64, 67))) %>% 
+  vec("pi_chord") %>% 
+  voice() %>% 
+  as.list()
+```
+
+By default, revoicing chords of type `pi_chord` also preserves
+the number of occurrences of each pitch class in the chord.
+This, and other behaviours,
+can be changed using the `opt` argument to `voice()`.
