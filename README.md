@@ -3,10 +3,8 @@
 
 Chord voicing is the art of assigning pitch heights to pitch classes.
 This package, `voicer`, optimises the voicings of chord sequences
-according to objective criteria, instantiated in a customistable cost
-function. It uses the Viterbi algorithm, as implemented in the `seqopt`
-package, to guarantee that the voiced chord sequence globally maximises
-this cost function.
+according to an objective cost function. The Viterbi algorithm is used
+to guarantee solution optimality.
 
 Status: **pre-alpha**
 
