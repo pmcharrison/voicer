@@ -19,9 +19,11 @@ all_voicings_pi_chord <- function(x, opt) {
   x <- sort(x)
   bass_pc <- x[1] %% 12
   x <- if (opt$dbl_change) {
-    all_voicings_pc_set(x = sort(unique(x %% 12)), opt)
+    pc_set <- sort(unique(x %% 12))
+    all_voicings_pc_set(x = pc_set, opt)
   } else {
-    all_voicings_pc_multiset(x = sort(x %% 12), opt)
+    pc_multiset <- sort(x %% 12)
+    all_voicings_pc_multiset(x = pc_multiset, opt)
   }
   purrr::keep(x, function(z) (z[1] %% 12 == bass_pc))
 }
