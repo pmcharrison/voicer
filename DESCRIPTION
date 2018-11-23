@@ -16,7 +16,9 @@ Imports:
     gtools (>= 3.8.1),
     incon,
     hutil,
-    checkmate
-URL: https://github.com/pmcharrison/voiceR
-BugReports: https://github.com/pmcharrison/voiceR/issues
+    checkmate,
+    minVL,
+    purrr
+URL: https://github.com/pmcharrison/voicer
+BugReports: https://github.com/pmcharrison/voicer/issues
 Remotes: pmcharrison/seqopt, pmcharrison/hutil, pmcharrison/incon

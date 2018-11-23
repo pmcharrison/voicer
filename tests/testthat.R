@@ -1,4 +1,4 @@
 library(testthat)
-library(voiceChord)
+library(voicer)
 
-test_check("voiceChord")
+test_check("voicer")

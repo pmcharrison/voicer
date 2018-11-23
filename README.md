@@ -1,9 +1,12 @@
 
 # voicer
 
-Chord sequences can be voiced in different ways, some better than
-others. This package, `voicer`, tries to find optimal voicings for chord
-sequences.
+Chord voicing is the art of assigning pitch heights to pitch classes.
+This package, `voicer`, optimises the voicings of chord sequences
+according to objective criteria, instantiated in a customistable cost
+function. It uses the Viterbi algorithm, as implemented in the `seqopt`
+package, to guarantee that the voiced chord sequence globally maximises
+this cost function.
 
 Status: **pre-alpha**
 
