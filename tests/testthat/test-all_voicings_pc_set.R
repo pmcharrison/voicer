@@ -1,11 +1,13 @@
 context("test-all_voicings_pc_set")
 
+library(hrep)
+
 test_that("examples", {
   expect_error(all_voicings_pc_set(c(0, 4, 7), voice_opt(min_octave = 2, max_octave = 1)))
   expect_equal(all_voicings_pc_set(c(0, 4, 7), voice_opt(min_octave = 0, max_octave = 0)),
-               list(c(60, 64, 67)) %>% purrr::map(hutil::as.pi_chord))
+               list(c(60, 64, 67)) %>% purrr::map(as.pi_chord))
   expect_equal(all_voicings_pc_set(c(0, 4, 7), voice_opt(min_octave = -1, max_octave = -1)),
-               list(c(48, 52, 55)) %>% purrr::map(hutil::as.pi_chord))
+               list(c(48, 52, 55)) %>% purrr::map(as.pi_chord))
   expect_equal(all_voicings_pc_set(c(0, 4, 7), voice_opt(min_octave = -1, max_octave = 0)),
                list(
                  c(48, 52, 55),
@@ -16,7 +18,7 @@ test_that("examples", {
                  c(52, 60, 67),
                  c(55, 60, 64),
                  c(60, 64, 67)
-               ) %>% purrr::map(hutil::as.pi_chord))
+               ) %>% purrr::map(as.pi_chord))
 })
 
 test_that("changing doubles", {
@@ -35,5 +37,5 @@ test_that("changing doubles", {
       c(48, 49, 61),
       c(49, 60, 61),
       c(48, 49, 60, 61)
-    ) %>% purrr::map(hutil::as.pi_chord))
+    ) %>% purrr::map(as.pi_chord))
 })

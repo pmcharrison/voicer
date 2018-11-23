@@ -1,6 +1,6 @@
 context("test-all_voicings_pc_chord")
 
-library(hutil)
+library(hrep)
 
 test_that("examples", {
   expect_equal(
@@ -10,7 +10,7 @@ test_that("examples", {
          c(48, 52, 67),
          c(48, 55, 64),
          c(48, 64, 67),
-         c(60, 64, 67)) %>% purrr::map(hutil::as.pi_chord)
+         c(60, 64, 67)) %>% purrr::map(as.pi_chord)
   )
 
   expect_equal(
@@ -18,6 +18,6 @@ test_that("examples", {
                           voice_opt(min_octave = -1, max_octave = 0)),
     list(c(48, 55),
          c(48, 67),
-         c(60, 67)) %>% purrr::map(hutil::as.pi_chord)
+         c(60, 67)) %>% purrr::map(as.pi_chord)
   )
 })

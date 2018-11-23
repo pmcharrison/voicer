@@ -15,10 +15,10 @@ Imports:
     magrittr,
     gtools (>= 3.8.1),
     incon,
-    hutil,
+    hrep,
     checkmate,
     minVL,
     purrr
 URL: https://github.com/pmcharrison/voicer
 BugReports: https://github.com/pmcharrison/voicer/issues
-Remotes: pmcharrison/seqopt, pmcharrison/hutil, pmcharrison/incon
+Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/incon

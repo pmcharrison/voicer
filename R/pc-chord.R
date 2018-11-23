@@ -5,7 +5,7 @@ voice.vec_pc_chord <- function(x, opt = voice_opt()) {
   if (any(purrr::map_lgl(y, function(z) length(z) == 0L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y, cost_funs = opt$cost_funs, progress = opt$progress) %>%
-    hutil::vec(type = "pi_chord")
+    hrep::vec(type = "pi_chord")
 }
 
 all_voicings_vec_pc_chord <- function(x, opt) {
@@ -14,7 +14,7 @@ all_voicings_vec_pc_chord <- function(x, opt) {
 
 all_voicings_pc_chord <- function(x, opt) {
   if (length(x) == 0L) stop("empty chords not permitted")
-  bass_pc <- hutil::get_bass_pc(x)
+  bass_pc <- hrep::get_bass_pc(x)
   all_pc <- as.numeric(x)
 
   x <- if (opt$dbl_change)

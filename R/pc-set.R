@@ -6,7 +6,7 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
   if (any(purrr::map_lgl(y, function(z) length(z) == 1L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y, cost_funs = opt$cost_funs, progress = opt$progress) %>%
-    hutil::vec(type = "pi_chord")
+    hrep::vec(type = "pi_chord")
 }
 
 all_voicings_pc_set <- function(x, opt) {
@@ -43,5 +43,5 @@ all_voicings_pc_multiset <- function(x, opt) {
     (function(y) purrr::map(seq_len(nrow(y)), function(i) sort(y[i, ] + x))) %>%
     purrr::keep(function(z) !anyDuplicated(z)) %>%
     unique %>%
-    purrr::map(hutil::as.pi_chord)
+    purrr::map(hrep::as.pi_chord)
 }

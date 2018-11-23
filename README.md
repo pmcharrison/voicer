@@ -11,8 +11,8 @@ Status: **pre-alpha**
 ## Example usage
 
 `voice` is the main function to use. We pass `voice` vectors of chords
-as created by the `hutils` package. Important chord representations from
-the `hutils` package are:
+as created by the `hrep` package. Important chord representations from
+the `hrep` package are:
 
   - `pc_set()` - create a pitch-class set (unordered pitch classes from
     0 to 11)
@@ -23,7 +23,7 @@ the `hutils` package are:
 <!-- end list -->
 
 ``` r
-library(hutil)
+library(hrep)
 library(magrittr)
 library(voicer)
 
@@ -35,7 +35,7 @@ pi_chord(c(60, 64, 67))
 #> Pitch chord: 60 64 67
 ```
 
-Using the function `vec` from the `hutils` package, we combine lists of
+Using the function `vec` from the `hrep` package, we combine lists of
 chords into typed vectors.
 
 ``` r

@@ -6,7 +6,7 @@ voice.vec_pi_chord <- function(x, opt = voice_opt()) {
   if (any(purrr::map_lgl(y, function(z) length(z) == 0L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y, cost_funs = opt$cost_funs, progress = opt$progress) %>%
-    hutil::vec(type = "pi_chord")
+    hrep::vec(type = "pi_chord")
 }
 
 all_voicings_vec_pi_chord <- function(x, opt) {
