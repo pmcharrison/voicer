@@ -43,5 +43,5 @@ all_voicings_pc_multiset <- function(x, opt) {
     (function(y) purrr::map(seq_len(nrow(y)), function(i) sort(y[i, ] + x))) %>%
     purrr::keep(function(z) !anyDuplicated(z)) %>%
     unique %>%
-    purrr::map(hrep::as.pi_chord)
+    purrr::map(hrep::pi_chord)
 }
