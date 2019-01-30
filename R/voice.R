@@ -11,3 +11,8 @@ voice.vec <- function(x, opt = voice_opt()) {
   f <- paste0("voice.vec_", type)
   do.call(f, args = list(x = x, opt = opt))
 }
+
+#' @export
+voice.coded_vec <- function(x, opt = voice_opt()) {
+  voice(hrep::decode(x), opt = opt)
+}
