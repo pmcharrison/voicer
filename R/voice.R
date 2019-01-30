@@ -5,7 +5,7 @@ voice <- function(x, opt = voice_opt()) {
 
 #' @export
 voice.vec <- function(x, opt = voice_opt()) {
-  if (hrep::is.empty(x)) return(x)
+  if (length(x) == 0L) return(x)
   type <- hrep::type(x)
   checkmate::qassert(type, "S1")
   f <- paste0("voice.vec_", type)
