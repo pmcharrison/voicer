@@ -4,11 +4,20 @@
 \alias{all_voicings_pc_set}
 \title{All voicings (pitch-class set)}
 \usage{
+<<<<<<< HEAD
 all_voicings_pc_set(x, min_octave, max_octave, dbl_change, dbl_min,
   dbl_max)
 }
 \arguments{
 \item{x}{Pitch-class set to voice.}
+=======
+all_voicings_pc_set(x, opt)
+}
+\arguments{
+\item{x}{Pitch-class set to voice.}
+
+\item{opt}{Options list as created by \code{\link{voice_opt}}.}
+>>>>>>> 0b9f6e8408f7959e596a72edbf93791b72a129fe
 }
 \value{
 A list of possible voicings.

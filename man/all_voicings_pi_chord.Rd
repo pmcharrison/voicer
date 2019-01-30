@@ -2,6 +2,7 @@
 % Please edit documentation in R/pi-chord.R
 \name{all_voicings_pi_chord}
 \alias{all_voicings_pi_chord}
+<<<<<<< HEAD
 \title{All voicings (pi_chord)}
 \usage{
 all_voicings_pi_chord(x, min_octave, max_octave, dbl_change, dbl_min,
@@ -9,6 +10,16 @@ all_voicings_pi_chord(x, min_octave, max_octave, dbl_change, dbl_min,
 }
 \arguments{
 \item{x}{Object to voice.}
+=======
+\title{All voicings}
+\usage{
+all_voicings_pi_chord(x, opt)
+}
+\arguments{
+\item{x}{Object to voice.}
+
+\item{opt}{Options list as created by \code{\link{voice_opt}}.}
+>>>>>>> 0b9f6e8408f7959e596a72edbf93791b72a129fe
 }
 \value{
 A list of possible voicings.
