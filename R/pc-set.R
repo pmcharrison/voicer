@@ -9,6 +9,14 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
     hrep::vec(type = "pi_chord")
 }
 
+#' All voicings (pitch-class set)
+#'
+#' Lists all the possible voicings for an object of class
+#' \code{\link[hrep]{pc_set}}.
+#' @param x Pitch-class set to voice.
+#' @param opt Options list as created by \code{\link{voice_opt}}.
+#' @return A list of possible voicings.
+#' @export
 all_voicings_pc_set <- function(x, opt) {
   checkmate::qassert(x, "N[0,12)")
   if (length(x) == 0L) stop("empty pitch-class sets not permitted")
@@ -33,6 +41,14 @@ all_voicings_pc_set <- function(x, opt) {
   }) %>% unlist(recursive = FALSE)
 }
 
+#' All voicings (pitch-class multiset)
+#'
+#' Lists all the possible voicings for a pitch-class multiset.
+#' @param x Pitch-class multiset to voice, expressed as a numeric vector
+#' with potentially repeated elements.
+#' @param opt Options list as created by \code{\link{voice_opt}}.
+#' @return A list of possible voicings.
+#' @export
 all_voicings_pc_multiset <- function(x, opt) {
   checkmate::qassert(x, "N[0,12)")
   octaves <- seq(from = opt$min_octave, to = opt$max_octave)

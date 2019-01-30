@@ -13,6 +13,14 @@ all_voicings_vec_pi_chord <- function(x, opt) {
   purrr::map(x, function(y) all_voicings_pi_chord(y, opt))
 }
 
+#' All voicings
+#'
+#' Lists all the possible voicings for an object of class
+#' \code{\link[hrep]{pi_chord}}.
+#' @param x Object to voice.
+#' @param opt Options list as created by \code{\link{voice_opt}}.
+#' @return A list of possible voicings.
+#' @export
 all_voicings_pi_chord <- function(x, opt) {
   if (length(x) == 0L) stop("empty chords not permitted")
   x <- sort(x)
