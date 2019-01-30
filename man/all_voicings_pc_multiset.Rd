@@ -4,20 +4,11 @@
 \alias{all_voicings_pc_multiset}
 \title{All voicings (pitch-class multiset)}
 \usage{
-<<<<<<< HEAD
 all_voicings_pc_multiset(x, min_octave, max_octave)
-=======
-all_voicings_pc_multiset(x, opt)
->>>>>>> 0b9f6e8408f7959e596a72edbf93791b72a129fe
 }
 \arguments{
 \item{x}{Pitch-class multiset to voice, expressed as a numeric vector
 with potentially repeated elements.}
-<<<<<<< HEAD
-=======
-
-\item{opt}{Options list as created by \code{\link{voice_opt}}.}
->>>>>>> 0b9f6e8408f7959e596a72edbf93791b72a129fe
 }
 \value{
 A list of possible voicings.

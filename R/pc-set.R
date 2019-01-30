@@ -30,8 +30,10 @@ all_voicings_pc_set <- function(x,
     stop("cannot voice this pitch-class set with ",
          dbl_min, " notes without omitting pitch classes")
   sizes <- if (dbl_change)
-    seq(from = dbl_min, to = dbl_max) else
-      length(x)
+    seq(from = pmax(length(x),
+                    dbl_min),
+        to = dbl_max) else
+          length(x)
   purrr::map(sizes, function(size) {
     n_extra <- size - length(x)
     if (n_extra == 0L) all_voicings_pc_multiset(x, min_octave, max_octave) else {
