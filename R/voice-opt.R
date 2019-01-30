@@ -8,6 +8,12 @@
 #' expressed relative to middle C (MIDI note 60).
 #' For example, 0 identifies the octave ranging from middle C
 #' to the B 11 semitones above.
+#' @param dbl_change Is it permitted to change the doubling of the chords,
+#' whether by adding duplicated pitch classes or removing duplicated pitch classes?
+#' @param dbl_min If \code{dbl_change} is \code{TRUE},
+#' the minimum allowed number of notes in the voiced chords.
+#' @param dbl_max If \code{dbl_change} is \code{TRUE},
+#' the maximum allowed number of notes in the voiced chords.
 #' @export
 voice_opt <- function(min_octave = -2L,
                       max_octave = 1L,
