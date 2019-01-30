@@ -16,9 +16,7 @@ voicer_cost_funs <- function(
 ) {
   list(
     roughness = seqopt::cost_fun(context_sensitive = FALSE, f = function(x) {
-      incon::get_roughness(frequency = x,
-                           frequency_scale = "midi",
-                           method = "hutch")
+      incon::incon(x, model = "hutch_78_roughness")
     }, memoise = TRUE, weight = roughness_weight),
 
     parallels = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
