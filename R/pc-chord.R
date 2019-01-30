@@ -9,17 +9,31 @@ voice.vec_pc_chord <- function(x, opt = voice_opt()) {
 }
 
 all_voicings_vec_pc_chord <- function(x, opt) {
-  purrr::map(x, function(y) all_voicings_pc_chord(y, opt))
+  purrr::map(x, all_voicings_pc_chord,
+             opt$min_octave, opt$max_octave,
+             opt$dbl_change, opt$dbl_min, opt$dbl_max)
 }
 
-all_voicings_pc_chord <- function(x, opt) {
+
+#' All voicings (pc_chord)
+#'
+#' Lists all the possible voicings for an object of class
+#' \code{\link[hrep]{pc_chord}}.
+#' @param x Object to voice.
+#' @return A list of possible voicings.
+#' @export
+all_voicings_pc_chord <- function(x,
+                                  min_octave, max_octave,
+                                  dbl_change, dbl_min, dbl_max) {
   if (length(x) == 0L) stop("empty chords not permitted")
   bass_pc <- hrep::get_bass_pc(x)
   all_pc <- as.numeric(x)
 
-  x <- if (opt$dbl_change)
-    all_voicings_pc_set(x = all_pc, opt) else
-      all_voicings_pc_multiset(x = all_pc, opt)
+  x <- if (dbl_change)
+    all_voicings_pc_set(all_pc,
+                        min_octave, max_octave,
+                        dbl_change, dbl_min, dbl_max) else
+      all_voicings_pc_multiset(all_pc, min_octave, max_octave)
 
   purrr::keep(x, function(z) (z[1] %% 12 == bass_pc))
 }
