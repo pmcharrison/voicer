@@ -26,9 +26,9 @@ all_voicings_pc_set <- function(x,
   checkmate::qassert(x, "N[0,12)")
   if (length(x) == 0L) stop("empty pitch-class sets not permitted")
   stopifnot(!anyDuplicated(x))
-  if (dbl_change && dbl_min < length(x))
+  if (dbl_change && dbl_max < length(x))
     stop("cannot voice this pitch-class set with ",
-         dbl_min, "notes without omitting pitch classes")
+         dbl_min, " notes without omitting pitch classes")
   sizes <- if (dbl_change)
     seq(from = dbl_min, to = dbl_max) else
       length(x)
