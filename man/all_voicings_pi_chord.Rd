@@ -2,7 +2,7 @@
 % Please edit documentation in R/pi-chord.R
 \name{all_voicings_pi_chord}
 \alias{all_voicings_pi_chord}
-\title{All voicings}
+\title{All voicings (pi_chord)}
 \usage{
 all_voicings_pi_chord(x, min_octave, max_octave, dbl_change, dbl_min,
   dbl_max)
