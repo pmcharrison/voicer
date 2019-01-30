@@ -8,7 +8,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat (>= 2.0.0)
+    testthat (>= 2.0.0),
+    hcorp
 RoxygenNote: 6.1.0
 Imports: 
     seqopt (>= 0.1.0),
@@ -21,4 +22,4 @@ Imports:
     purrr
 URL: https://github.com/pmcharrison/voicer
 BugReports: https://github.com/pmcharrison/voicer/issues
-Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/incon
+Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/incon, pmcharrison/hcorp
