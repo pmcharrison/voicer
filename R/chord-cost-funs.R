@@ -20,20 +20,12 @@ voicer_cost_funs <- function(
     }, memoise = TRUE, weight = roughness_weight),
 
     parallels = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
-      context_bass <- min(context)
-      context_treble <- max(context)
-      context_int <- context_treble - context_bass
-      if ((context_int %% 12) %in% c(0, 7)) {
-        next_bass <- min(x)
-        next_treble <- max(x)
-        next_int <- next_treble - next_bass
-        if (next_int == context_int) 1 else 0
-      } else 0
+      as.numeric(parallels(context, x))
     }, weight = parallels_weight),
 
-    melody_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
-      abs(max(x) - max(context))
-    }, weight = melody_dist_weight),
+    melody_dist = seqopt::cost_fun(context_sensitive = TRUE,
+                                   f = melody_dist,
+                                   weight = melody_dist_weight),
 
     min_vl_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(contexts, x) {
       as.numeric(minVL::min_vl_dists(contexts, list(x), elt_type = "pitch", norm = vl_dist_norm))
@@ -52,4 +44,23 @@ voicer_cost_funs <- function(
     }, weight = min_pitch_weight)
 
   )
+}
+
+# Checks for parallels between the bass and melody ONLY
+#' @export
+parallels <- function(x, y) {
+  x_bass <- min(x)
+  x_treble <- max(x)
+  x_int <- x_treble - x_bass
+  if ((x_int %% 12) %in% c(0, 7)) {
+    y_bass <- min(y)
+    y_treble <- max(y)
+    y_int <- y_treble - y_bass
+    if (y_int == x_int && x_bass != y_bass) TRUE else FALSE
+  } else FALSE
+}
+
+#' @export
+melody_dist <- function(x, y) {
+  abs(max(y) - max(x))
 }
