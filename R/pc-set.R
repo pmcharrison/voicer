@@ -23,6 +23,7 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
 all_voicings_pc_set <- function(x,
                                 min_octave, max_octave,
                                 dbl_change, dbl_min, dbl_max) {
+  x <- as.numeric(x)
   checkmate::qassert(x, "N[0,12)")
   if (length(x) == 0L) stop("empty pitch-class sets not permitted")
   stopifnot(!anyDuplicated(x))
@@ -56,6 +57,7 @@ all_voicings_pc_set <- function(x,
 #' @return A list of possible voicings.
 #' @export
 all_voicings_pc_multiset <- function(x, min_octave, max_octave) {
+  x <- as.numeric(x)
   checkmate::qassert(x, "N[0,12)")
   if (min_octave > max_octave) stop("<min_octave> cannot be greater than <max_octave>")
   octaves <- seq(from = min_octave, to = max_octave)

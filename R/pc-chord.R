@@ -25,6 +25,7 @@ all_voicings_vec_pc_chord <- function(x, opt) {
 all_voicings_pc_chord <- function(x,
                                   min_octave, max_octave,
                                   dbl_change, dbl_min, dbl_max) {
+  x <- as.numeric(x)
   if (length(x) == 0L) stop("empty chords not permitted")
   bass_pc <- hrep::get_bass_pc(x)
   all_pc <- as.numeric(x)
