@@ -1,18 +1,18 @@
 #' @export
 voicer_cost_funs <- function(
   memoise = TRUE,
-  roughness_weight = 20,
+  roughness_weight = 1,
   roughness_method = "hutch",
-  parallels_weight = 50,
-  melody_dist_weight = 10,
-  vl_dist_weight = 10,
+  parallels_weight = 1,
+  melody_dist_weight = 1,
+  vl_dist_weight = 1,
   vl_dist_norm = "taxicab",
   mean_pitch = 60,
-  mean_pitch_weight = 10,
+  mean_pitch_weight = 1,
   max_pitch_boundary = 80,
-  max_pitch_weight = 5,
+  max_pitch_weight = 1,
   min_pitch_boundary = 40,
-  min_pitch_weight = 5
+  min_pitch_weight = 1
 ) {
   list(
     roughness = seqopt::cost_fun(context_sensitive = FALSE, f = function(x) {
