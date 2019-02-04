@@ -29,7 +29,7 @@ voicer_cost_funs <- function(
 
     min_vl_dist = seqopt::cost_fun(context_sensitive = TRUE, f = function(contexts, x) {
       as.numeric(minVL::min_vl_dists(contexts, list(x), elt_type = "pitch", norm = vl_dist_norm))
-    }, memoise = TRUE, vectorised = TRUE, weight = 10),
+    }, memoise = TRUE, vectorised = TRUE, weight = vl_dist_weight),
 
     mean_pitch = seqopt::cost_fun(context_sensitive = FALSE, f = function(x) {
       abs(mean(x) - mean_pitch)
