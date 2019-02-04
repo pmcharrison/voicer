@@ -15,6 +15,14 @@ test_that("examples", {
       c(45L, 52L, 67L, 72L),
       c(43L, 50L, 71L),
       c(50L, 54L, 69L)),
-    hcorp::classical_1[[1]][1:10] %>% voice() %>% as.list %>% lapply(as.integer)
+    hcorp::classical_1[[1]][1:10] %>% voice(voice_opt(cost_funs = voicer_cost_funs(
+      vl_dist_weight = 1,
+      roughness_weight = 1,
+      parallels_weight = 1,
+      melody_dist_weight = 1,
+      mean_pitch_weight = 1,
+      max_pitch_weight = 1,
+      min_pitch_weight = 1
+    ))) %>% as.list %>% lapply(as.integer)
   )
 })
