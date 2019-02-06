@@ -15,8 +15,10 @@ test_that("examples", {
       c(45L, 52L, 67L, 72L),
       c(43L, 50L, 71L),
       c(50L, 54L, 69L)),
-    hcorp::classical_1[[1]][1:10] %>% voice(voice_opt(cost_funs = voicer_cost_funs(
-      top = 80, middle = 60, bottom = 40
-    ))) %>% as.list %>% lapply(as.integer)
+    hcorp::classical_1[[1]][1:10] %>%
+      voice(voice_opt(cost_funs = cheung_2019()$cost_funs,
+                      weights = cheung_2019()$weights)) %>%
+      as.list() %>%
+      lapply(as.integer)
   )
 })

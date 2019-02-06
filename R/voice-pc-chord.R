@@ -4,7 +4,10 @@ voice.vec_pc_chord <- function(x, opt = voice_opt()) {
   y <- all_voicings_vec_pc_chord(x = x, opt = opt)
   if (any(purrr::map_lgl(y, function(z) length(z) == 0L)))
     stop("no legal revoicings found")
-  seqopt::seq_opt(y, cost_funs = opt$cost_funs, progress = opt$progress) %>%
+  seqopt::seq_opt(y,
+                  cost_funs = opt$cost_funs,
+                  weights = opt$weights,
+                  progress = opt$progress) %>%
     hrep::vec(type = "pi_chord")
 }
 

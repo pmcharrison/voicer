@@ -21,6 +21,7 @@ voice_opt <- function(min_octave = -2L,
                       dbl_min = 5L,
                       dbl_max = 5L,
                       cost_funs = voicer_cost_funs(),
+                      weights = 1,
                       progress = interactive()) {
   stopifnot(min_octave <= max_octave)
   stopifnot(dbl_min <= dbl_max)
