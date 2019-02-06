@@ -9,5 +9,6 @@ part_overlap <- function(x, y) {
 }
 
 cf_part_overlap <- function() {
-  seqopt::cost_fun(context_sensitive = TRUE, f = part_overlap)
+  seqopt::cost_fun(context_sensitive = TRUE,
+                   f = function(context, x) as.numeric(part_overlap(context, x)))
 }
