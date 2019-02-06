@@ -1,5 +1,5 @@
 #' @export
-voicer_cost_funs <- function(
+voice_cost_funs <- function(
   vl_dist_norm = "taxicab",
   top = 72,
   middle = 60,

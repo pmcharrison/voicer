@@ -20,7 +20,7 @@ voice_opt <- function(min_octave = -2L,
                       dbl_change = FALSE,
                       dbl_min = 5L,
                       dbl_max = 5L,
-                      cost_funs = voicer_cost_funs(),
+                      cost_funs = voice_cost_funs(),
                       weights = voice_weights(),
                       progress = interactive()) {
   if (!is.null(names(cost_funs)) && !is.null(names(weights))
@@ -41,7 +41,7 @@ voice_weights <- function(...) {
   if (anyDuplicated(arg)) stop("duplicates not permitted in voice_weights")
   if (length(arg) > 0L && is.null(names(arg)))
     stop("all arguments to voice_weights must be named")
-  funs <- names(voicer_cost_funs())
+  funs <- names(voice_cost_funs())
   unrecognised <- names(arg)[!(names(arg) %in% funs)]
   if (length(unrecognised) > 0L)
     stop("unrecognised cost function(s): ", paste(unrecognised, collapse = ", "))
