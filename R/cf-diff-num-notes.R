@@ -1,5 +1,7 @@
-#' @export
-diff_num_notes <- (function(x, y) {
-  abs(length(x) - length(y))
-}) %>%
-  seqopt::cost_fun(context_sensitive = TRUE)
+diff_num_notes <- function(ideal_num_notes) {
+  checkmate::qassert(ideal_num_notes, "N1[0,]")
+  (function(x) {
+    abs(length(x) - ideal_num_notes)
+  }) %>%
+    seqopt::cost_fun(context_sensitive = FALSE)
+}
