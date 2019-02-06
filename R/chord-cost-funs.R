@@ -4,45 +4,64 @@ voicer_cost_funs <- function(
   vl_dist_norm = "taxicab",
   top = 72, # set to 80 to replicate Vincent's stimuli
   middle = 60, # set to 60 to replicate Vincent's stimuli
-  bottom = 48, # set to 40 to replicate Vincent's stimuli
+  bottom = 48 # set to 40 to replicate Vincent's stimuli
 ) {
-  x <- list()
+  list(
+    vl_dist = cf_vl_dist(memoise, vl_dist_norm),
+    hutch_78 = cf_hutch_78(memoise),
+    melody_dist = cf_melody_dist(),
+    outer_parallels = cf_outer_parallels(),
+    dist_above_top = cf_dist_above_top(top),
+    dist_from_middle = cf_dist_from_middle(middle),
+    dist_below_bottom = cf_dist_below_bottom(bottom)
+  )
+}
 
-  x$vl_dist <- seqopt::cost_fun(
+cf_vl_dist <- function(memoise, vl_dist_norm) {
+  seqopt::cost_fun(
     context_sensitive = TRUE,
-    memoise = TRUE,
+    memoise = memoise,
     vectorised = TRUE,
     f = function(contexts, x)
       as.numeric(minVL::min_vl_dists(contexts,
                                      list(x),
                                      elt_type = "pitch",
                                      norm = vl_dist_norm)))
+}
 
-  x$hutch_78 <- seqopt::cost_fun(
+cf_hutch_78 <- function(memoise) {
+  seqopt::cost_fun(
     context_sensitive = FALSE,
-    memoise = TRUE,
+    memoise = memoise,
     f = function(x) incon::incon(x, model = "hutch_78_roughness"))
+}
 
-  x$melody_dist <- seqopt::cost_fun(context_sensitive = TRUE,
-                                    f = melody_dist),
+cf_melody_dist <- function() {
+  seqopt::cost_fun(context_sensitive = TRUE, f = melody_dist)
+}
 
-  x$outer_parallels <- seqopt::cost_fun(
+cf_outer_parallels <- function() {
+  seqopt::cost_fun(
     context_sensitive = TRUE,
     f = function(context, x) as.numeric(outer_parallels(context, x)))
+}
 
-  x$dist_from_middle = seqopt::cost_fun(
-    context_sensitive = FALSE,
-    f = function(x) abs(mean(x) - middle)),
-
-  x$dist_above_top = seqopt::cost_fun(
+cf_dist_above_top <- function(top) {
+  seqopt::cost_fun(
     context_sensitive = FALSE,
     f = function(x) pmax(0, max(x) - top))
+}
 
-  x$dist_below_bottom = seqopt::cost_fun(
+cf_dist_from_middle <- function(middle) {
+  seqopt::cost_fun(
+    context_sensitive = FALSE,
+    f = function(x) abs(mean(x) - middle))
+}
+
+cf_dist_below_bottom <- function(bottom) {
+  seqopt::cost_fun(
     context_sensitive = FALSE,
     f = function(x) pmax(0, bottom - min(x)))
-
-  x
 }
 
 # Checks for parallels between the bass and melody ONLY
