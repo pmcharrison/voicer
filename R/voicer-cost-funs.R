@@ -12,11 +12,10 @@ voicer_cost_funs <- function(
     outer_parallels = cf_outer_parallels(),
     dist_above_top = cf_dist_above_top(top),
     dist_from_middle = cf_dist_from_middle(middle),
-    dist_below_bottom = cf_dist_below_bottom(bottom)
+    dist_below_bottom = cf_dist_below_bottom(bottom),
+    part_overlap = cf_part_overlap()
   )
 }
-
-# part overlap rule?
 
 # exposed octaves and fifths
 
