@@ -20,10 +20,10 @@ cf_dist_below_bottom <- function(bottom) {
     f = function(x) pmax(0, bottom - min(x)))
 }
 
-cf_vl_dist <- function(memoise, vl_dist_norm) {
+cf_vl_dist <- function(vl_dist_norm) {
   seqopt::cost_fun(
     context_sensitive = TRUE,
-    memoise = memoise,
+    memoise = TRUE,
     vectorised = TRUE,
     f = function(contexts, x)
       as.numeric(minVL::min_vl_dists(contexts,

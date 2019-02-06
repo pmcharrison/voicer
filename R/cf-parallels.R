@@ -1,6 +1,6 @@
 #' @export
 any_parallels <- function(x, y) {
-  min_vl <- minVL::min_vl(x, y, elt_type = "pitch")
+  min_vl <- min_vl(x, y, elt_type = "pitch")
   n <- length(min_vl$start)
   pairs <- gtools::combinations(n, 2)
   for (i in seq_len(nrow(pairs))) {
