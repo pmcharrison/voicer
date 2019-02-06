@@ -2,7 +2,7 @@
 voicer_weights <- function(hutch_78 = 1,
                            vl_dist = 1,
                            melody_dist = 1,
-                           parallels = 1,
+                           outer_parallels = 1,
                            dist_from_middle = 1,
                            dist_above_top = 1,
                            dist_below_bottom = 1) {
@@ -38,9 +38,9 @@ voicer_cost_funs <- function(
                                    f = melody_dist,
                                    weight = weights[["melody_dist"]]),
 
-    parallels = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
-      as.numeric(parallels(context, x))
-    }, weight = weights[["parallels"]]),
+    outer_parallels = seqopt::cost_fun(context_sensitive = TRUE, f = function(context, x) {
+      as.numeric(outer_parallels(context, x))
+    }, weight = weights[["outer_parallels"]]),
 
     dist_from_middle = seqopt::cost_fun(context_sensitive = FALSE, f = function(x) {
       abs(mean(x) - middle)
@@ -59,7 +59,7 @@ voicer_cost_funs <- function(
 
 # Checks for parallels between the bass and melody ONLY
 #' @export
-parallels <- function(x, y) {
+outer_parallels <- function(x, y) {
   x_bass <- min(x)
   x_treble <- max(x)
   x_int <- x_treble - x_bass
@@ -75,3 +75,33 @@ parallels <- function(x, y) {
 melody_dist <- function(x, y) {
   abs(max(y) - max(x))
 }
+
+#' @export
+any_parallels <- function(x, y) {
+  min_vl <- minVL::min_vl(x, y, elt_type = "pitch")
+  n <- length(min_vl$start)
+  pairs <- gtools::combinations(n, 2)
+  for (i in seq_len(nrow(pairs))) {
+    v1 <- pairs[i, 1]
+    v2 <- pairs[i, 2]
+    moved <- (min_vl$end[v1] - min_vl$start[v1]) != 0
+    if (moved) { # if the lower note has moved
+      fifth_or_octave <- ((min_vl$start[v2] - min_vl$start[v1]) %% 12) %in% c(0, 7)
+      if (fifth_or_octave) { # if the two notes originally formed a (compound) fifth or octave
+        parallel <- # if the two notes moved by the same interval
+          (min_vl$end[v1] - min_vl$start[v1]) ==
+          (min_vl$end[v2] - min_vl$start[v2])
+        if (parallel) {
+          return(TRUE)
+        }
+      }
+    }
+  }
+  FALSE
+}
+
+# part overlap rule?
+
+# exposed octaves and fifths
+
+# changes in the number of chord notes
