@@ -6,18 +6,17 @@ voicer_cost_funs <- function(
   bottom = 48
 ) {
   list(
-    vl_dist = cf_vl_dist(vl_dist_norm),
-    hutch_78 = cf_hutch_78(),
-    melody_dist = cf_melody_dist(),
-    outer_parallels = cf_outer_parallels(),
-    any_parallels = cf_any_parallels(),
-    dist_above_top = cf_dist_above_top(top),
-    dist_from_middle = cf_dist_from_middle(middle),
-    dist_below_bottom = cf_dist_below_bottom(bottom),
-    part_overlap = cf_part_overlap()
+    vl_dist = vl_dist(vl_dist_norm),
+    hutch_78 = hutch_78,
+    melody_dist = melody_dist,
+    outer_parallels = outer_parallels,
+    any_parallels = any_parallels,
+    dist_above_top = dist_above_top(top),
+    dist_from_middle = dist_from_middle(middle),
+    dist_below_bottom = dist_below_bottom(bottom),
+    part_overlap = part_overlap,
+    exposed_outer_octaves = exposed_outer_octaves
   )
 }
-
-# exposed octaves and fifths
 
 # changes in the number of chord notes

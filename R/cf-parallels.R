@@ -1,5 +1,5 @@
 #' @export
-any_parallels <- function(x, y) {
+any_parallels <- (function(x, y) {
   if (length(x) < 2 || length(y) < 2) return(FALSE)
   min_vl <- min_vl(x, y, elt_type = "pitch")
   n <- length(min_vl$start)
@@ -21,11 +21,11 @@ any_parallels <- function(x, y) {
     }
   }
   FALSE
-}
+}) %>% seqopt::cost_fun(context_sensitive = TRUE)
 
 # Checks for parallels between the bass and melody ONLY
 #' @export
-outer_parallels <- function(x, y) {
+outer_parallels <- (function(x, y) {
   if (length(x) < 2 || length(y) < 2) return(FALSE)
   x_bass <- min(x)
   x_treble <- max(x)
@@ -36,16 +36,4 @@ outer_parallels <- function(x, y) {
     y_int <- y_treble - y_bass
     if (y_int == x_int && x_bass != y_bass) TRUE else FALSE
   } else FALSE
-}
-
-cf_outer_parallels <- function() {
-  seqopt::cost_fun(
-    context_sensitive = TRUE,
-    f = function(context, x) as.numeric(outer_parallels(context, x)))
-}
-
-cf_any_parallels <- function() {
-  seqopt::cost_fun(
-    context_sensitive = TRUE,
-    f = function(context, x) as.numeric(any_parallels(context, x)))
-}
+}) %>% seqopt::cost_fun(context_sensitive = TRUE)
