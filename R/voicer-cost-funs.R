@@ -15,8 +15,7 @@ voicer_cost_funs <- function(
     dist_from_middle = dist_from_middle(middle),
     dist_below_bottom = dist_below_bottom(bottom),
     part_overlap = part_overlap,
-    exposed_outer_octaves = exposed_outer_octaves
+    exposed_outer_octaves = exposed_outer_octaves,
+    diff_num_notes = diff_num_notes
   )
 }
-
-# changes in the number of chord notes
