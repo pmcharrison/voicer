@@ -1,5 +1,6 @@
 #' @export
 any_parallels <- function(x, y) {
+  if (length(x) < 2 || length(y) < 2) return(FALSE)
   min_vl <- min_vl(x, y, elt_type = "pitch")
   n <- length(min_vl$start)
   pairs <- gtools::combinations(n, 2)
@@ -25,6 +26,7 @@ any_parallels <- function(x, y) {
 # Checks for parallels between the bass and melody ONLY
 #' @export
 outer_parallels <- function(x, y) {
+  if (length(x) < 2 || length(y) < 2) return(FALSE)
   x_bass <- min(x)
   x_treble <- max(x)
   x_int <- x_treble - x_bass
@@ -40,4 +42,10 @@ cf_outer_parallels <- function() {
   seqopt::cost_fun(
     context_sensitive = TRUE,
     f = function(context, x) as.numeric(outer_parallels(context, x)))
+}
+
+cf_any_parallels <- function() {
+  seqopt::cost_fun(
+    context_sensitive = TRUE,
+    f = function(context, x) as.numeric(any_parallels(context, x)))
 }

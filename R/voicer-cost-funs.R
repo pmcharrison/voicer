@@ -10,6 +10,7 @@ voicer_cost_funs <- function(
     hutch_78 = cf_hutch_78(),
     melody_dist = cf_melody_dist(),
     outer_parallels = cf_outer_parallels(),
+    any_parallels = cf_any_parallels(),
     dist_above_top = cf_dist_above_top(top),
     dist_from_middle = cf_dist_from_middle(middle),
     dist_below_bottom = cf_dist_below_bottom(bottom),
@@ -20,4 +21,3 @@ voicer_cost_funs <- function(
 # exposed octaves and fifths
 
 # changes in the number of chord notes
-
