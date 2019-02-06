@@ -18,8 +18,8 @@
 voice_opt <- function(min_octave = -2L,
                       max_octave = 1L,
                       dbl_change = FALSE,
-                      dbl_min = 5L,
-                      dbl_max = 5L,
+                      dbl_min = 2L,
+                      dbl_max = 4L,
                       cost_funs = voice_cost_funs(),
                       weights = voice_weights(),
                       progress = interactive()) {
