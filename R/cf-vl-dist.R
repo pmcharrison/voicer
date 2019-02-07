@@ -6,4 +6,5 @@ vl_dist <- (function(contexts, continuation) {
   vl_dist_(contexts, continuation)
 }) %>%
   seqopt::cost_fun(context_sensitive = TRUE,
-                   vectorised = TRUE)
+                   vectorised = TRUE,
+                   symmetric = TRUE)

@@ -50,3 +50,12 @@ test_that("vectorisation", {
     purrr::map_lgl(s1, r.exposed_outer_octaves, s2)
   )
 })
+
+test_that("reverse", {
+  s1 <- purrr::map(1:300, ~ sort(sample(50:70, 3)))
+  s2 <- c(60, 63, 72)
+  expect_equal(
+    exposed_outer_octaves(s1, s2, reverse = TRUE),
+    purrr::map_lgl(s1, ~ r.exposed_outer_octaves(s2, .))
+  )
+})

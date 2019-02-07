@@ -54,14 +54,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // exposed_outer_octaves_
-LogicalVector exposed_outer_octaves_(List contexts, NumericVector continuation);
-RcppExport SEXP _voicer_exposed_outer_octaves_(SEXP contextsSEXP, SEXP continuationSEXP) {
+LogicalVector exposed_outer_octaves_(List elts, NumericVector elt, bool reverse);
+RcppExport SEXP _voicer_exposed_outer_octaves_(SEXP eltsSEXP, SEXP eltSEXP, SEXP reverseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type contexts(contextsSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type continuation(continuationSEXP);
-    rcpp_result_gen = Rcpp::wrap(exposed_outer_octaves_(contexts, continuation));
+    Rcpp::traits::input_parameter< List >::type elts(eltsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type elt(eltSEXP);
+    Rcpp::traits::input_parameter< bool >::type reverse(reverseSEXP);
+    rcpp_result_gen = Rcpp::wrap(exposed_outer_octaves_(elts, elt, reverse));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -155,7 +156,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_voicer_any_parallels_", (DL_FUNC) &_voicer_any_parallels_, 2},
     {"_voicer_change_num_notes__", (DL_FUNC) &_voicer_change_num_notes__, 2},
     {"_voicer_change_num_notes_", (DL_FUNC) &_voicer_change_num_notes_, 2},
-    {"_voicer_exposed_outer_octaves_", (DL_FUNC) &_voicer_exposed_outer_octaves_, 2},
+    {"_voicer_exposed_outer_octaves_", (DL_FUNC) &_voicer_exposed_outer_octaves_, 3},
     {"_voicer_melody_dist__", (DL_FUNC) &_voicer_melody_dist__, 2},
     {"_voicer_melody_dist_", (DL_FUNC) &_voicer_melody_dist_, 2},
     {"_voicer_outer_parallels__", (DL_FUNC) &_voicer_outer_parallels__, 2},

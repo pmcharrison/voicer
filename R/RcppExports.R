@@ -17,8 +17,8 @@ change_num_notes_ <- function(contexts, continuation) {
     .Call(`_voicer_change_num_notes_`, contexts, continuation)
 }
 
-exposed_outer_octaves_ <- function(contexts, continuation) {
-    .Call(`_voicer_exposed_outer_octaves_`, contexts, continuation)
+exposed_outer_octaves_ <- function(elts, elt, reverse = FALSE) {
+    .Call(`_voicer_exposed_outer_octaves_`, elts, elt, reverse)
 }
 
 melody_dist__ <- function(x, y) {

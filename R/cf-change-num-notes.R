@@ -4,4 +4,5 @@ change_num_notes <- (function(contexts, continuation) {
   change_num_notes_(contexts, continuation)
 }) %>%
   seqopt::cost_fun(context_sensitive = TRUE,
-                   vectorised = TRUE)
+                   vectorised = TRUE,
+                   symmetric = TRUE)

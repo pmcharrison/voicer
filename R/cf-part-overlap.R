@@ -4,4 +4,5 @@ part_overlap <- (function(contexts, continuation) {
   part_overlap_(contexts, continuation)
 }) %>%
   seqopt::cost_fun(context_sensitive = TRUE,
-                   vectorised = TRUE)
+                   vectorised = TRUE,
+                   symmetric = TRUE)

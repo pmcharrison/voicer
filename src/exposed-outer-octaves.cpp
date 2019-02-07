@@ -26,11 +26,21 @@ bool exposed_outer_octaves__(NumericVector x, NumericVector y) {
 }
 
 // [[Rcpp::export]]
-LogicalVector exposed_outer_octaves_(List contexts, NumericVector continuation) {
-  int n = contexts.size();
+LogicalVector exposed_outer_octaves_(List elts,
+                                     NumericVector elt,
+                                     bool reverse = false) {
+  int n = elts.size();
   LogicalVector res = LogicalVector(n);
   for (int i = 0; i < n; i ++) {
-    NumericVector context = as<NumericVector>(contexts[i]);
+    NumericVector context;
+    NumericVector continuation;
+    if (!reverse) {
+      context = as<NumericVector>(elts[i]);
+      continuation = elt;
+    } else {
+      context = elt;
+      continuation = as<NumericVector>(elts[i]);
+    }
     res[i] = exposed_outer_octaves__(context, continuation);
   }
   return(res);

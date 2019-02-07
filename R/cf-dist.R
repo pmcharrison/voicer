@@ -4,7 +4,8 @@ melody_dist <- (function(contexts, continuation) {
   melody_dist_(contexts, continuation)
 }) %>%
   seqopt::cost_fun(context_sensitive = TRUE,
-                   vectorised = TRUE)
+                   vectorised = TRUE,
+                   symmetric = TRUE)
 
 #' @export
 dist_above_top <- function(top) {
