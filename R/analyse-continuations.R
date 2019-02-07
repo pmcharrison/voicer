@@ -1,3 +1,4 @@
+# context = NULL means no context
 get_features_for_continuations <- function(funs,
                                            context,
                                            continuations,
