@@ -2,7 +2,7 @@ context("test-part-overlap")
 
 r.part_overlap <- (function(x, y) {
   if (length(x) == 0 || length(y) == 0) return(FALSE)
-  vl <- min_vl(x, y, elt_type = "pitch")
+  vl <- minVL::min_vl(x, y, elt_type = "pitch")
   n <- length(vl$start)
   cross_above <- any(vl$end[- n] > vl$start[- 1L])
   cross_below <- any(vl$end[- 1L] < vl$start[- n])

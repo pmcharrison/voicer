@@ -9,11 +9,43 @@ any_parallels_ <- function(context, continuation) {
     .Call(`_voicer_any_parallels_`, context, continuation)
 }
 
+change_num_notes__ <- function(x, y) {
+    .Call(`_voicer_change_num_notes__`, x, y)
+}
+
+change_num_notes_ <- function(contexts, continuation) {
+    .Call(`_voicer_change_num_notes_`, contexts, continuation)
+}
+
+exposed_outer_octaves_ <- function(contexts, continuation) {
+    .Call(`_voicer_exposed_outer_octaves_`, contexts, continuation)
+}
+
+melody_dist__ <- function(x, y) {
+    .Call(`_voicer_melody_dist__`, x, y)
+}
+
+melody_dist_ <- function(contexts, continuation) {
+    .Call(`_voicer_melody_dist_`, contexts, continuation)
+}
+
+outer_parallels__ <- function(x, y) {
+    .Call(`_voicer_outer_parallels__`, x, y)
+}
+
+outer_parallels_ <- function(contexts, continuation) {
+    .Call(`_voicer_outer_parallels_`, contexts, continuation)
+}
+
 part_overlap__ <- function(start, end) {
     .Call(`_voicer_part_overlap__`, start, end)
 }
 
 part_overlap_ <- function(context, continuation) {
     .Call(`_voicer_part_overlap_`, context, continuation)
+}
+
+vl_dist_ <- function(context, continuation) {
+    .Call(`_voicer_vl_dist_`, context, continuation)
 }
 

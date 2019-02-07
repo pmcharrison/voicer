@@ -1,6 +1,5 @@
 #' @export
 voice_cost_funs <- function(
-  vl_dist_norm = "taxicab",
   top = 72,
   middle = 60,
   bottom = 48,
@@ -18,6 +17,6 @@ voice_cost_funs <- function(
     melody_dist = melody_dist,
     outer_parallels = outer_parallels,
     part_overlap = part_overlap,
-    vl_dist = vl_dist(vl_dist_norm)
+    vl_dist = vl_dist
   )
 }

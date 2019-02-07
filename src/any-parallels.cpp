@@ -3,9 +3,7 @@
 #include <iostream>
 using namespace Rcpp;
 
-float mod(float x, int base) {
-  return x - floor(x / base) * base;
-}
+double mod(double x, int base);
 
 // takes minimal voice leadings as input
 // [[Rcpp::export]]

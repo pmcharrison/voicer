@@ -29,6 +29,90 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// change_num_notes__
+int change_num_notes__(NumericVector x, NumericVector y);
+RcppExport SEXP _voicer_change_num_notes__(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(change_num_notes__(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// change_num_notes_
+IntegerVector change_num_notes_(List contexts, NumericVector continuation);
+RcppExport SEXP _voicer_change_num_notes_(SEXP contextsSEXP, SEXP continuationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type contexts(contextsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type continuation(continuationSEXP);
+    rcpp_result_gen = Rcpp::wrap(change_num_notes_(contexts, continuation));
+    return rcpp_result_gen;
+END_RCPP
+}
+// exposed_outer_octaves_
+LogicalVector exposed_outer_octaves_(List contexts, NumericVector continuation);
+RcppExport SEXP _voicer_exposed_outer_octaves_(SEXP contextsSEXP, SEXP continuationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type contexts(contextsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type continuation(continuationSEXP);
+    rcpp_result_gen = Rcpp::wrap(exposed_outer_octaves_(contexts, continuation));
+    return rcpp_result_gen;
+END_RCPP
+}
+// melody_dist__
+double melody_dist__(NumericVector x, NumericVector y);
+RcppExport SEXP _voicer_melody_dist__(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(melody_dist__(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// melody_dist_
+NumericVector melody_dist_(List contexts, NumericVector continuation);
+RcppExport SEXP _voicer_melody_dist_(SEXP contextsSEXP, SEXP continuationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type contexts(contextsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type continuation(continuationSEXP);
+    rcpp_result_gen = Rcpp::wrap(melody_dist_(contexts, continuation));
+    return rcpp_result_gen;
+END_RCPP
+}
+// outer_parallels__
+bool outer_parallels__(NumericVector x, NumericVector y);
+RcppExport SEXP _voicer_outer_parallels__(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(outer_parallels__(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// outer_parallels_
+LogicalVector outer_parallels_(List contexts, NumericVector continuation);
+RcppExport SEXP _voicer_outer_parallels_(SEXP contextsSEXP, SEXP continuationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type contexts(contextsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type continuation(continuationSEXP);
+    rcpp_result_gen = Rcpp::wrap(outer_parallels_(contexts, continuation));
+    return rcpp_result_gen;
+END_RCPP
+}
 // part_overlap__
 bool part_overlap__(NumericVector start, NumericVector end);
 RcppExport SEXP _voicer_part_overlap__(SEXP startSEXP, SEXP endSEXP) {
@@ -53,12 +137,32 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// vl_dist_
+NumericVector vl_dist_(List context, NumericVector continuation);
+RcppExport SEXP _voicer_vl_dist_(SEXP contextSEXP, SEXP continuationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type context(contextSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type continuation(continuationSEXP);
+    rcpp_result_gen = Rcpp::wrap(vl_dist_(context, continuation));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_voicer_any_parallels__", (DL_FUNC) &_voicer_any_parallels__, 2},
     {"_voicer_any_parallels_", (DL_FUNC) &_voicer_any_parallels_, 2},
+    {"_voicer_change_num_notes__", (DL_FUNC) &_voicer_change_num_notes__, 2},
+    {"_voicer_change_num_notes_", (DL_FUNC) &_voicer_change_num_notes_, 2},
+    {"_voicer_exposed_outer_octaves_", (DL_FUNC) &_voicer_exposed_outer_octaves_, 2},
+    {"_voicer_melody_dist__", (DL_FUNC) &_voicer_melody_dist__, 2},
+    {"_voicer_melody_dist_", (DL_FUNC) &_voicer_melody_dist_, 2},
+    {"_voicer_outer_parallels__", (DL_FUNC) &_voicer_outer_parallels__, 2},
+    {"_voicer_outer_parallels_", (DL_FUNC) &_voicer_outer_parallels_, 2},
     {"_voicer_part_overlap__", (DL_FUNC) &_voicer_part_overlap__, 2},
     {"_voicer_part_overlap_", (DL_FUNC) &_voicer_part_overlap_, 2},
+    {"_voicer_vl_dist_", (DL_FUNC) &_voicer_vl_dist_, 2},
     {NULL, NULL, 0}
 };
 
