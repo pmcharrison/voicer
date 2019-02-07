@@ -17,5 +17,6 @@ profile_cost_funs <- function(funs = voice_cost_funs()) {
                              cost_funs = funs,
                              weights = rep(1, times = length(funs)),
                              exponentiate = FALSE,
-                             profile = TRUE)
+                             profile = TRUE) %>%
+    attr("time")
 }
