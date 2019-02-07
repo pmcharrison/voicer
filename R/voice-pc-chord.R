@@ -41,3 +41,4 @@ all_voicings_pc_chord <- function(x,
 
   purrr::keep(x, function(z) (z[1] %% 12 == bass_pc))
 }
+all_voicings_pc_chord <- memoise::memoise(all_voicings_pc_chord)

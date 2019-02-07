@@ -51,6 +51,7 @@ all_voicings_pc_set <- function(x,
     }
   }) %>% unlist(recursive = FALSE)
 }
+all_voicings_pc_set <- memoise::memoise(all_voicings_pc_set)
 
 #' All voicings (pitch-class multiset)
 #'
@@ -73,3 +74,4 @@ all_voicings_pc_multiset <- function(x, min_octave, max_octave) {
     unique %>%
     purrr::map(hrep::pi_chord)
 }
+all_voicings_pc_multiset <- memoise::memoise(all_voicings_pc_multiset)
