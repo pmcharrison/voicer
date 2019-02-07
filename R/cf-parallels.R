@@ -1,6 +1,10 @@
 #' @export
-any_parallels <- any_parallels_ %>% seqopt::cost_fun(context_sensitive = TRUE,
-                                                     vectorised = TRUE)
+any_parallels <- (function(contexts, continuation) {
+  stopifnot(is.list(contexts), is.numeric(continuation))
+  any_parallels_(contexts, continuation)
+}) %>%
+  seqopt::cost_fun(context_sensitive = TRUE,
+                   vectorised = TRUE)
 
 # Checks for parallels between the bass and melody ONLY
 #' @export

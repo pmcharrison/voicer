@@ -9,3 +9,11 @@ any_parallels_ <- function(context, continuation) {
     .Call(`_voicer_any_parallels_`, context, continuation)
 }
 
+part_overlap__ <- function(start, end) {
+    .Call(`_voicer_part_overlap__`, start, end)
+}
+
+part_overlap_ <- function(context, continuation) {
+    .Call(`_voicer_part_overlap_`, context, continuation)
+}
+
