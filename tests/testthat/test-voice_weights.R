@@ -10,6 +10,6 @@ test_that("misc", {
 
   expect_error(
     voice_weights(blah = 3),
-    "unrecognised cost functions: blah"
+    "unrecognised cost function(s): blah"
   )
 })
