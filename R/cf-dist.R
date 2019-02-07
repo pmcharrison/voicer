@@ -27,6 +27,9 @@ dist_below_bottom <- function(bottom) {
 .min_vl_dists <- memoise::memoise(minVL::min_vl_dists,
                                   cache = memoise::cache_memory())
 
+.min_vls <- memoise::memoise(minVL::min_vls,
+                             cache = memoise::cache_memory())
+
 vl_dist <- function(vl_dist_norm) {
   (function(contexts, x) {
     .min_vl_dists(contexts,
