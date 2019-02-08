@@ -1,6 +1,6 @@
 Package: voicer
 Title: Finding Optimal Voicings for Chord Sequences
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
 Description: Chord sequences can be voiced in different ways, some better than others. This package tries to find optimal voicings for chord sequences.
 Depends: R (>= 3.4.0)
