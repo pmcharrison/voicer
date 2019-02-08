@@ -14,6 +14,8 @@ test_that("corpus features regression test", {
                              dbl_max = 4)
   old <- readRDS(system.file("regression-tests/get-corpus-features.rds", package = "voicer"))
 
+  expect_equal(attr(new, "features"), names(voice_cost_funs()))
+
   new_2 <- new %>%
     dplyr::select(seq, pos, chosen,
                   hutch_78, vl_dist, melody_dist, outer_parallels) %>%
@@ -22,5 +24,5 @@ test_that("corpus features regression test", {
     dplyr::select(- c(id, mean_pitch, min_pitch, max_pitch)) %>%
     dplyr::rename(outer_parallels = parallels) %>%
     as.data.frame
-  expect_equal(new_2, old_2)
+  expect_equal(new_2, old_2, check.attributes = FALSE)
 })

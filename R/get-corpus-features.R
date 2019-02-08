@@ -6,11 +6,13 @@ get_corpus_features <- function(x,
                                 dbl_change,
                                 dbl_min,
                                 dbl_max,
-                                cost_funs = "default") {
+                                features = voice_cost_funs()) {
+  stopifnot(!is.null(names(features)),
+            !anyDuplicated(names(features)))
   purrr::map2(x, seq_along(x), function(seq, i) {
     "Analysing sequence {i}/{length(x)}..." %>% glue::glue() %>% message()
     get_seq_features(seq,
-                     cost_funs = cost_funs,
+                     features = features,
                      revoice_from = revoice_from,
                      min_octave = min_octave,
                      max_octave = max_octave,
@@ -20,7 +22,13 @@ get_corpus_features <- function(x,
   }) %>%
     add_seq_id(x) %>%
     do.call(rbind, .) %>%
-    add_id()
+    add_id() %>%
+    add_feature_names(features)
+}
+
+add_feature_names <- function(z, features) {
+  attr(z, "features") <- names(features)
+  z
 }
 
 add_seq_id <- function(z, original) {
@@ -39,14 +47,13 @@ add_id <- function(z) {
                   id = as.integer(id))
 }
 
-get_seq_features <- function(x, cost_funs, revoice_from, ...) {
-  if (identical(cost_funs, "default")) cost_funs <- voice_cost_funs()
+get_seq_features <- function(x, features, revoice_from, ...) {
   message("Enumerating all possible voicings...")
   revoicings <- purrr::map(x, all_revoicings, revoice_from = revoice_from, ...)
   message("Iterating over sequence to compute features...")
   plyr::llply(seq_along(x), function(i) {
     get_features_for_continuations(
-      funs = cost_funs,
+      funs = features,
       context = if (i == 1) NULL else x[[i - 1]],
       continuations = revoicings[[i]]
     ) %>%
