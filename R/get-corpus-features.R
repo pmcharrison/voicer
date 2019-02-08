@@ -26,6 +26,9 @@ get_seq_features <- function(x, cost_funs, revoice_from, ...) {
       context = if (i == 1) NULL else x[[i - 1]],
       continuations = revoicings[[i]]
     ) %>%
+      tibble::add_column(midi = purrr::map_chr(revoicings[[i]],
+                                               paste, collapse = " "),
+                         .before = 1) %>%
       tibble::add_column(
         chosen = purrr::map_lgl(revoicings[[i]],
                                 ~ identical(as.numeric(.), as.numeric(x[[i]]))),
