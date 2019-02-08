@@ -12,7 +12,6 @@ test_that("corpus features regression test", {
                              dbl_change = TRUE,
                              dbl_min = 3,
                              dbl_max = 4)
-  )
   old <- readRDS(system.file("regression-tests/get-corpus-features.rds", package = "voicer"))
 
   new_2 <- new %>%
