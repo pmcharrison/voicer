@@ -20,7 +20,8 @@ Imports:
     checkmate,
     minVL,
     purrr,
-    Rcpp
+    Rcpp,
+    dplyr
 URL: https://github.com/pmcharrison/voicer
 BugReports: https://github.com/pmcharrison/voicer/issues
 Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/incon, pmcharrison/hcorp
