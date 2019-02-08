@@ -7,6 +7,11 @@ test_that("corpus features regression test", {
   )
   new <- get_corpus_features(corpus,
                              revoice_from = "pc_set",
+                             min_octave = -2,
+                             max_octave = 1,
+                             dbl_change = TRUE,
+                             dbl_min = 3,
+                             dbl_max = 4)
   )
   old <- readRDS(system.file("regression-tests/get-corpus-features.rds", package = "voicer"))
 

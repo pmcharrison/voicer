@@ -1,16 +1,38 @@
+#' @export
 get_corpus_features <- function(x,
-                                cost_funs = "default",
-                                revoice_from = "pc_chord",
-                                min_octave = -2,
-                                max_octave = 1,
-                                dbl_change = TRUE,
-                                dbl_min = 3,
-                                dbl_max = 4) {
-  args <- as.list(environment())
-  names(args)[1] <- ".x"
-  do.call(purrr::map, append(args, values = list(.f = get_seq_features), after = 1)) %>%
-    purrr::map2(seq_along(x), ~ tibble::add_column(.data = .x, seq = .y, .before = 1)) %>%
+                                revoice_from,
+                                min_octave,
+                                max_octave,
+                                dbl_change,
+                                dbl_min,
+                                dbl_max,
+                                cost_funs = "default") {
+  purrr::map2(x, seq_along(x), function(seq, i) {
+    "Analysing sequence {i}/{length(x)}..." %>% glue::glue() %>% message()
+    get_seq_features(seq,
+                     cost_funs = cost_funs,
+                     revoice_from = revoice_from,
+                     min_octave = min_octave,
+                     max_octave = max_octave,
+                     dbl_change = dbl_change,
+                     dbl_min = dbl_min,
+                     dbl_max = dbl_max)
+  }) %>%
+    add_seq_id(x) %>%
     do.call(rbind, .) %>%
+    add_id()
+}
+
+add_seq_id <- function(z, original) {
+  purrr::map2(z,
+              seq_along(original),
+              ~ tibble::add_column(.x,
+                                   seq = .y,
+                                   .before = 1))
+}
+
+add_id <- function(z) {
+  z %>%
     tibble::add_column(id = NA, .before = 1) %>%
     dplyr::mutate(id = paste(seq, pos, sep = "-"),
                   id = factor(id, levels = unique(id), ordered = TRUE),
@@ -19,7 +41,9 @@ get_corpus_features <- function(x,
 
 get_seq_features <- function(x, cost_funs, revoice_from, ...) {
   if (identical(cost_funs, "default")) cost_funs <- voice_cost_funs()
+  message("Enumerating all possible voicings...")
   revoicings <- purrr::map(x, all_revoicings, revoice_from = revoice_from, ...)
+  message("Iterating over sequence to compute features...")
   plyr::llply(seq_along(x), function(i) {
     get_features_for_continuations(
       funs = cost_funs,
