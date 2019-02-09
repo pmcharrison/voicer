@@ -6,11 +6,13 @@ get_corpus_features <- function(x,
                                 dbl_change,
                                 dbl_min,
                                 dbl_max,
-                                features = voice_cost_funs()) {
+                                features = voice_cost_funs(),
+                                verbose = TRUE) {
+  checkmate::qassert(verbose, "B1")
   stopifnot(!is.null(names(features)),
             !anyDuplicated(names(features)))
   purrr::map2(x, seq_along(x), function(seq, i) {
-    "Analysing sequence {i}/{length(x)}..." %>% glue::glue() %>% message()
+    if (verbose) "Analysing sequence {i}/{length(x)}..." %>% glue::glue() %>% message()
     get_seq_features(seq,
                      features = features,
                      revoice_from = revoice_from,
@@ -18,7 +20,8 @@ get_corpus_features <- function(x,
                      max_octave = max_octave,
                      dbl_change = dbl_change,
                      dbl_min = dbl_min,
-                     dbl_max = dbl_max)
+                     dbl_max = dbl_max,
+                     verbose = verbose)
   }) %>%
     add_seq_id(x) %>%
     do.call(rbind, .) %>%
@@ -58,10 +61,10 @@ add_id <- function(z) {
                   id = as.integer(id))
 }
 
-get_seq_features <- function(x, features, revoice_from, ...) {
-  message("Enumerating all possible voicings...")
+get_seq_features <- function(x, features, revoice_from, verbose, ...) {
+  if (verbose) message("Enumerating all possible voicings...")
   revoicings <- purrr::map(x, all_revoicings, revoice_from = revoice_from, ...)
-  message("Iterating over sequence to compute features...")
+  if (verbose) message("Iterating over sequence to compute features...")
   plyr::llply(seq_along(x), function(i) {
     get_features_for_continuations(
       funs = features,
@@ -76,7 +79,7 @@ get_seq_features <- function(x, features, revoice_from, ...) {
                                 ~ identical(as.numeric(.), as.numeric(x[[i]]))),
         .before = 1) %>%
       tibble::add_column(pos = i, .before = 1)
-  }, .progress = "text") %>%
+  }, .progress = if (verbose) "text" else "none") %>%
     do.call(rbind, .)
 }
 
