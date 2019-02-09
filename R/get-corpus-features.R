@@ -4,13 +4,20 @@ get_corpus_features <- function(x,
                                 min_octave,
                                 max_octave,
                                 dbl_change,
-                                dbl_min,
-                                dbl_max,
+                                dbl_min = NA,
+                                dbl_max = NA,
                                 features = voice_cost_funs(),
                                 verbose = TRUE) {
   checkmate::qassert(verbose, "B1")
   stopifnot(!is.null(names(features)),
             !anyDuplicated(names(features)))
+  check_revoice_options(x, 
+                        verbose,
+                        min_octave,
+                        max_octave,
+                        dbl_change,
+                        dbl_min,
+                        dbl_max)
   purrr::map2(x, seq_along(x), function(seq, i) {
     if (verbose) "Analysing sequence {i}/{length(x)}..." %>% glue::glue() %>% message()
     get_seq_features(seq,
@@ -28,6 +35,40 @@ get_corpus_features <- function(x,
     add_id() %>%
     add_feature_names(features) %>%
     add_class_corpus_features()
+}
+
+check_revoice_options <- function(x, 
+                                  verbose,
+                                  min_octave,
+                                  max_octave,
+                                  dbl_change,
+                                  dbl_min,
+                                  dbl_max) {
+  if (verbose) message("Checking revoicing options...")
+  min_pitch <- min(purrr::map_dbl(x, function(seq) min(purrr::map_dbl(seq, min))))
+  max_pitch <- max(purrr::map_dbl(x, function(seq) max(purrr::map_dbl(seq, max))))
+  if (min_pitch < 60 + min_octave * 12)
+    stop("corpus has minimum pitch of ", min_pitch, 
+         " which cannot be reproduced with min_octave = ", min_octave)
+  if (max_pitch >= 72 + max_octave * 12)
+    stop("corpus has maximum pitch of ", max_pitch, 
+         " which cannot be reproduced with max_octave = ", max_octave)
+  
+  if (dbl_change) {
+    if (is.na(dbl_min) || is.na(dbl_max))
+      stop("if dbl_change = TRUE, then dbl_min and dbl_max cannot be NA")
+    checkmate::qassert(dbl_min, "X1")
+    checkmate::qassert(dbl_max, "X1")
+    min_size <- min(purrr::map_int(x, function(seq) min(purrr::map_int(seq, length))))
+    max_size <- max(purrr::map_int(x, function(seq) max(purrr::map_int(seq, length))))
+    if (min_size < dbl_min)
+      stop("corpus has minimum chord size of ", min_size, 
+           " which cannot be reproduced with dbl_min = ", dbl_min)
+    if (max_size > dbl_max)
+      stop("corpus has maximum chord size of ", max_size, 
+           " which cannot be reproduced with dbl_max = ", dbl_max)
+  }
+  invisible(TRUE)
 }
 
 #' @export
