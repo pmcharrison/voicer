@@ -6,9 +6,8 @@ model_features <- function(x,
                            eval_model = TRUE,
                            perm_int = TRUE,
                            verbose = TRUE) {
-  if (!is_corpus_features(x))
-    stop("'x' must be a 'corpus_features' object as created by ",
-         "'get-corpus-features'")
+  if (!is.data.frame(x))
+    stop("'x' must be a data frame as created by 'get-corpus-features'")
   if (perm_int && !eval_model) {
     warning("cannot compute permutation importance without ",
             "evaluating the model; setting eval_model to TRUE.")
