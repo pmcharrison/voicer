@@ -1,6 +1,33 @@
-context("test-get-corpus-features")
+context("test-model")
 
-test_that("corpus features regression test", {
+# Checks the output of the predict() method.
+check_pred <- function(model, df) {
+  weights <- model$weights
+  features <- model$weights$feature
+  mod <- model$mod
+  
+  # Check the linear predictor
+  df <- dplyr::mutate(
+    df,
+    linear_pred = as.numeric(as.matrix(df[, features]) %*%
+                               as.matrix(weights[, "estimate"])))
+  expect_equal(df$linear_pred, 
+               mod$linear.predictors[seq_along(df$linear_pred)])
+  
+  # Check predicted probabilities
+  df$exp_linear_pred <- exp(df$linear_pred)
+  partition <- df %>% 
+    dplyr::group_by(id) %>% 
+    dplyr::summarise(partition = sum(exp_linear_pred)) %>% 
+    dplyr::ungroup()
+  df <- dplyr::left_join(df, partition, by = "id")
+  df$p <- df$exp_linear_pred / df$partition
+  expect_equal(df$p, predict(mod, newdata = df, type = "response"))
+  
+  TRUE
+}
+
+test_that("testing features and modelling", {
   corpus <- list(
     hcorp::bach_chorales_1[[1]][1:5],
     hcorp::bach_chorales_1[[2]][1:5]
@@ -18,11 +45,11 @@ test_that("corpus features regression test", {
                              verbose = interactive())
   old <- readRDS(system.file("regression-tests/get-corpus-features.rds", 
                              package = "voicer"))
-
+  
   expect_equal(attr(new, "features"), c("hutch_78", "vl_dist",
                                         "melody_dist", "outer_parallels"))
   expect_true(is_corpus_features(new))
-
+  
   new_2 <- new %>%
     dplyr::select(seq, pos, chosen,
                   hutch_78, vl_dist, melody_dist, outer_parallels) %>%
@@ -49,4 +76,5 @@ test_that("corpus features regression test", {
   expect_is(mod$eval$summary, "data.frame")
   expect_is(mod$perm_int, "data.frame")
   expect_equal(mod$perm_int$feature, c("hutch_78", "vl_dist"))
+  check_pred(mod, na.omit(new))
 })
