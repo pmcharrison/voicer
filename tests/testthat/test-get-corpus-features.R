@@ -15,6 +15,7 @@ test_that("corpus features regression test", {
   old <- readRDS(system.file("regression-tests/get-corpus-features.rds", package = "voicer"))
 
   expect_equal(attr(new, "features"), names(voice_cost_funs()))
+  expect_true(is_corpus_features(new))
 
   new_2 <- new %>%
     dplyr::select(seq, pos, chosen,

@@ -23,7 +23,18 @@ get_corpus_features <- function(x,
     add_seq_id(x) %>%
     do.call(rbind, .) %>%
     add_id() %>%
-    add_feature_names(features)
+    add_feature_names(features) %>%
+    add_class_corpus_features()
+}
+
+#' @export
+is_corpus_features <- function(x) {
+  is(x, "corpus_features")
+}
+
+add_class_corpus_features <- function(z) {
+  class(z) <- c("corpus_features", class(z))
+  z
 }
 
 add_feature_names <- function(z, features) {
