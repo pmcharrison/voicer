@@ -10,7 +10,7 @@ voice.vec_pi_chord <- function(x, opt = voice_opt()) {
                   cost_funs = opt$cost_funs,
                   weights = opt$weights, 
                   minimise = FALSE,
-                  exponentiate = TRUE,
+                  exponentiate = opt$exponentiate,
                   verbose = opt$verbose) %>%
     hrep::vec(type = "pi_chord")
 }
