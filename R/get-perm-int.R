@@ -4,10 +4,11 @@ get_perm_int <- function(dat, mod_eval, mod, features, formula, verbose) {
     dplyr::bind_rows()
 }
 
+# Permute the feature, keep the model the same,
+# and evaluate the model.
 feature_perm_int <- function(feature, dat, mod_eval, mod, formula) {
   dat[[feature]] <- sample(dat[[feature]], size = nrow(dat), replace = FALSE)
-  perm_mod <- fit_model(formula, dat, verbose = FALSE)
-  eval_mod(perm_mod, dat) %>% 
+  eval_mod(mod, dat) %>% 
     {.$summary} %>% 
     {mod_eval$summary - .} %>% 
     tibble::add_column(feature = feature, .before = 1) %>% 
