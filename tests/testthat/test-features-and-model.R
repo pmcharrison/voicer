@@ -79,6 +79,12 @@ test_that("testing features and modelling", {
   expect_is(mod$perm_int, "data.frame")
   expect_equal(mod$perm_int$feature, c("hutch_78", "vl_dist"))
   check_pred(mod, na.omit(new))
+  
+  expect_equal(format_weights(mod),
+               c(hutch_78 = 8.98687309122839,
+                 vl_dist = -0.436249659994516))
+  expect_error(format_weights("letters"),
+               "don't know how to deal with weights of class character")
 })
 
 test_that("check_revoice_options", {

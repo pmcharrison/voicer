@@ -22,14 +22,46 @@ voice_opt <- function(min_octave = -2L,
                       dbl_max = 4L,
                       cost_funs = voice_cost_funs(),
                       weights = voice_weights(),
-                      progress = interactive()) {
-  if (!is.null(names(cost_funs)) && !is.null(names(weights))
-      && !identical(names(cost_funs), names(weights)))
-    stop("inconsistent names for cost_funs and weights")
-
+                      verbose = TRUE) {
+  
+  weights <- format_weights(weights)
+  check_weight_consistency(weights, cost_funs)
+  
   stopifnot(min_octave <= max_octave)
   stopifnot(dbl_min <= dbl_max)
   as.list(environment())
+}
+
+check_weight_consistency <- function(weights, cost_funs) {
+  if (length(weights) != length(cost_funs))
+    stop("weights must have the same length as cost_funs")
+  
+  if (anyNA(weights)) stop("weights are not permitted to be NA")
+  
+  if (!is.null(names(cost_funs)) && !is.null(names(weights))
+      && !identical(names(cost_funs), names(weights)))
+    stop("inconsistent names for cost_funs and weights")
+}
+
+format_weights <- function(x) {
+  UseMethod("format_weights")
+}
+
+format_weights.default <- function(x) {
+  stop("don't know how to deal with weights of class ",
+       paste(class(x), collapse = ", "))
+}
+
+format_weights.numeric <- function(x) {
+  x
+}
+
+format_weights.voicer_weights <- function(x) {
+  x$estimate %>% magrittr::set_names(x$feature)
+}
+
+format_weights.voicer_model <- function(x) {
+  format_weights(x$weights)
 }
 
 #' @export

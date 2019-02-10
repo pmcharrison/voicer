@@ -2,6 +2,7 @@
 voice.vec_pc_set <- function(x, opt = voice_opt()) {
   if (any(purrr::map_lgl(x, function(z) length(z) == 0L)))
     stop("empty pitch-class sets not permitted")
+  if (opt$verbose) message("Enumerating all possible chord voicings...")
   y <- purrr::map(x, function(pc_set) all_voicings_pc_set(
     pc_set,
     opt$min_octave, opt$max_octave,
@@ -12,7 +13,9 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
   seqopt::seq_opt(y,
                   cost_funs = opt$cost_funs,
                   weights = opt$weights,
-                  progress = opt$progress) %>%
+                  minimise = FALSE,
+                  exponentiate = TRUE,
+                  verbose = opt$verbose) %>%
     hrep::vec(type = "pi_chord")
 }
 
