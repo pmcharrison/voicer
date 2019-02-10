@@ -27,7 +27,7 @@ model_features <- function(x,
   if (!keep_model) mod <- NULL
   res <- list(
     features = features,
-    formula = formula,
+    formula = as.character(formula),
     weights = weights,
     mod = mod,
     eval = eval,
