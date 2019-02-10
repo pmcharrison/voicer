@@ -12,6 +12,5 @@ feature_perm_int <- function(feature, dat, mod_eval, mod, formula) {
     {.$summary} %>% 
     {mod_eval$summary - .} %>% 
     tibble::add_column(feature = feature, .before = 1) %>% 
-    dplyr::select(- c(num_options, num_missing)) %>% 
     tibble::as_tibble()
 }

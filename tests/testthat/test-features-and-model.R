@@ -74,7 +74,7 @@ test_that("testing features and modelling", {
   expect_is(mod$mod, "mclogit")
   expect_is(mod$eval, "list")
   expect_is(mod$eval$by_chord, "data.frame")
-  expect_equal(nrow(mod$eval$by_chord), 10)
+  expect_equal(nrow(mod$eval$by_chord), 8) # excludes first chord of each sequence
   expect_is(mod$eval$summary, "data.frame")
   expect_is(mod$perm_int, "data.frame")
   expect_equal(mod$perm_int$feature, c("hutch_78", "vl_dist"))

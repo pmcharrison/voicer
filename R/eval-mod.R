@@ -1,5 +1,8 @@
 eval_mod <- function(mod, dat) {
-  pred <- predict(mod, type = "response", na.action = "na.exclude")
+  # Note: predict.mclogit ignores na.action;
+  # we must have already removed NA rows.
+  pred <- predict(mod, newdata = dat, type = "response")
+  if (length(pred) != nrow(dat)) stop("data contained unexpected missing values")
   eval_pred(dat, pred)
 }
 
@@ -34,12 +37,10 @@ eval_chord_pred <- function(x) {
 }
 
 summarise_chord_preds <- function(x) {
-  num_missing <- sum(is.na(x$probability))
   list(
     by_chord = x,
     summary = x %>% 
       dplyr::select(- id) %>% 
-      dplyr::summarise_all(mean, na.rm = TRUE) %>% 
-      tibble::add_column(num_missing = num_missing)
+      dplyr::summarise_all(mean, na.rm = TRUE)
   )
 }

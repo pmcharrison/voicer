@@ -16,6 +16,8 @@ model_features <- function(x,
   checkmate::qassert(keep_model, "B1")
   checkmate::qassert(eval_model, "B1")
   checkmate::qassert(perm_int, "B1")
+  if (verbose) message("Excluding the first chord of each sequence...")
+  x <- dplyr::filter(x, pos > 1)
   if (verbose) message("Fitting model...")
   mod <- fit_model(formula, x, verbose)
   eval <- if (eval_model) eval_mod(mod, x)

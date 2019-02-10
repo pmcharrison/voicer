@@ -16,8 +16,7 @@ test_that("examples", {
       c(43L, 50L, 71L),
       c(50L, 54L, 69L)),
     hcorp::classical_1[[1]][1:10] %>%
-      voice(voice_opt(cost_funs = cheung_2019()$cost_funs,
-                      weights = cheung_2019()$weights)) %>%
+      voice(opt = cheung_2019_opt(verbose = FALSE)) %>%
       as.list() %>%
       lapply(as.integer)
   )
