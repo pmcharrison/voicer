@@ -27,6 +27,7 @@ eval_chord_pred <- function(x) {
   res <- tibble::tibble(
     id = id,
     probability = x %>% dplyr::filter(chosen) %>% dplyr::pull(pred),
+    accuracy = as.numeric(which.max(x$pred) == which(x$chosen)),
     info_content = - log2(probability),
     num_options = nrow(x),
     abs_rank = rank(- x$pred)[x$chosen],
