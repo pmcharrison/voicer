@@ -68,7 +68,7 @@ test_that("testing features and modelling", {
   expect_true(is_voicer_model(mod))
   expect_true(is_voicer_weights(mod$weights))
   expect_equal(mod$features, c("hutch_78", "vl_dist"))
-  expect_is(mod$formula, "formula")
+  expect_is(mod$formula, "character")
   expect_is(mod$weights, "data.frame")
   expect_equal(mod$weights$feature, c("hutch_78", "vl_dist"))
   expect_is(mod$mod, "mclogit")
