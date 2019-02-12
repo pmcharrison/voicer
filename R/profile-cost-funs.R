@@ -24,7 +24,7 @@ profile_cost_funs <- function(random = TRUE, funs = voice_cost_funs()) {
   seqopt::cost_by_prev_state(x, y,
                              cost_funs = funs,
                              weights = rep(1, times = length(funs)),
-                             exponentiate = FALSE,
+                             exp_cost = FALSE,
                              profile = TRUE) %>%
     attr("time")
 }

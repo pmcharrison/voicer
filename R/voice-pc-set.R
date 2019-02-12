@@ -14,7 +14,9 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
                   cost_funs = opt$cost_funs,
                   weights = opt$weights,
                   minimise = FALSE,
-                  exponentiate = opt$exponentiate,
+                  exp_cost = opt$exp_cost,
+                  norm_cost = opt$norm_cost,
+                  log_cost = opt$log_cost,
                   verbose = opt$verbose) %>%
     hrep::vec(type = "pi_chord")
 }

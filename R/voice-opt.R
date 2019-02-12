@@ -22,7 +22,9 @@ voice_opt <- function(min_octave = -2L,
                       dbl_max = 4L,
                       cost_funs = voice_cost_funs(),
                       weights = voice_weights(),
-                      exponentiate = TRUE,
+                      exp_cost = FALSE,
+                      norm_cost = FALSE,
+                      log_cost = FALSE,
                       verbose = TRUE) {
   
   weights <- format_weights(weights)
