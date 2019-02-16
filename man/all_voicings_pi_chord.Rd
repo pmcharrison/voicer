@@ -4,11 +4,21 @@
 \alias{all_voicings_pi_chord}
 \title{All voicings (pi_chord)}
 \usage{
-all_voicings_pi_chord(x, min_octave, max_octave, dbl_change, dbl_min,
-  dbl_max)
+all_voicings_pi_chord(x, min_octave, max_octave, dbl_change, min_notes,
+  max_notes)
 }
 \arguments{
 \item{x}{Object to voice.}
+
+\item{min_octave}{See \code{\link{voice_opt}}.}
+
+\item{max_octave}{See \code{\link{voice_opt}}.}
+
+\item{dbl_change}{See \code{\link{voice_opt}}.}
+
+\item{min_notes}{See \code{\link{voice_opt}}.}
+
+\item{max_notes}{See \code{\link{voice_opt}}.}
 }
 \value{
 A list of possible voicings.
@@ -16,4 +26,14 @@ A list of possible voicings.
 \description{
 Lists all the possible voicings for an object of class
 \code{\link[hrep]{pi_chord}}.
+}
+\details{
+By default, these voicings preserve the chord's bass pitch class.
+To include all possible inversions,
+transform the chord first to an object of class
+\code{\link[hrep]{pc_set}} and then call
+\code{\link{all_voicings_pc_set}}.
+By setting \code{dbl_change} to \code{TRUE},
+it is possible to preserve the pitch-class doublings
+in the original chord.
 }

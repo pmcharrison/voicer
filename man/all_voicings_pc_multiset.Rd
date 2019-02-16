@@ -9,6 +9,10 @@ all_voicings_pc_multiset(x, min_octave, max_octave)
 \arguments{
 \item{x}{Pitch-class multiset to voice, expressed as a numeric vector
 with potentially repeated elements.}
+
+\item{min_octave}{See \code{\link{voice_opt}}.}
+
+\item{max_octave}{See \code{\link{voice_opt}}.}
 }
 \value{
 A list of possible voicings.

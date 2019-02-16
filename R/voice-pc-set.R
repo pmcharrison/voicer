@@ -6,7 +6,7 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
   y <- purrr::map(x, function(pc_set) all_voicings_pc_set(
     pc_set,
     opt$min_octave, opt$max_octave,
-    opt$dbl_change, opt$dbl_min, opt$dbl_max
+    opt$dbl_change, opt$min_notes, opt$max_notes
   ))
   if (any(purrr::map_lgl(y, function(z) length(z) == 1L)))
     stop("no legal revoicings found")
@@ -26,22 +26,27 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
 #' Lists all the possible voicings for an object of class
 #' \code{\link[hrep]{pc_set}}.
 #' @param x Pitch-class set to voice.
+#' @param min_octave See \code{\link{voice_opt}}.
+#' @param max_octave See \code{\link{voice_opt}}.
+#' @param dbl_change See \code{\link{voice_opt}}.
+#' @param min_notes See \code{\link{voice_opt}}.
+#' @param max_notes See \code{\link{voice_opt}}.
 #' @return A list of possible voicings.
 #' @export
 all_voicings_pc_set <- function(x,
                                 min_octave, max_octave,
-                                dbl_change, dbl_min, dbl_max) {
+                                dbl_change, min_notes, max_notes) {
   x <- as.numeric(x)
   checkmate::qassert(x, "N[0,12)")
   if (length(x) == 0L) stop("empty pitch-class sets not permitted")
   stopifnot(!anyDuplicated(x))
-  if (dbl_change && dbl_max < length(x))
+  if (dbl_change && max_notes < length(x))
     stop("cannot voice this pitch-class set with ",
-         dbl_min, " notes without omitting pitch classes")
+         min_notes, " notes without omitting pitch classes")
   sizes <- if (dbl_change)
     seq(from = pmax(length(x),
-                    dbl_min),
-        to = dbl_max) else
+                    min_notes),
+        to = max_notes) else
           length(x)
   purrr::map(sizes, function(size) {
     n_extra <- size - length(x)
@@ -63,6 +68,8 @@ all_voicings_pc_set <- memoise::memoise(all_voicings_pc_set)
 #' Lists all the possible voicings for a pitch-class multiset.
 #' @param x Pitch-class multiset to voice, expressed as a numeric vector
 #' with potentially repeated elements.
+#' @param min_octave See \code{\link{voice_opt}}.
+#' @param max_octave See \code{\link{voice_opt}}.
 #' @return A list of possible voicings.
 #' @export
 all_voicings_pc_multiset <- function(x, min_octave, max_octave) {

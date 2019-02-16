@@ -8,8 +8,8 @@ eval_mod <- function(mod, dat) {
 
 eval_pred <- function(dat, pred) {
   dat %>% 
-    dplyr::select(id, seq, pos, chosen) %>% 
-    dplyr::mutate(chosen = as.logical(chosen),
+    dplyr::select(.data$id, .data$seq, .data$pos, .data$chosen) %>% 
+    dplyr::mutate(chosen = as.logical(.data$chosen),
                   pred = pred) %>% 
     split_by_chord() %>% 
     purrr::map(eval_chord_pred) %>% 
@@ -26,12 +26,12 @@ eval_chord_pred <- function(x) {
   stopifnot(length(id) == 1L)
   res <- tibble::tibble(
     id = id,
-    probability = x %>% dplyr::filter(chosen) %>% dplyr::pull(pred),
+    probability = x %>% dplyr::filter(.data$chosen) %>% dplyr::pull(.data$pred),
     accuracy = as.numeric(which.max(x$pred) == which(x$chosen)),
-    info_content = - log2(probability),
+    info_content = - log2(.data$probability),
     num_options = nrow(x),
     abs_rank = rank(- x$pred)[x$chosen],
-    pct_rank = (abs_rank - 0.5) / num_options
+    pct_rank = (.data$abs_rank - 0.5) / .data$num_options
   )
   stopifnot(nrow(res) == 1L)
   res
@@ -41,7 +41,7 @@ summarise_chord_preds <- function(x) {
   list(
     by_chord = x,
     summary = x %>% 
-      dplyr::select(- id) %>% 
+      dplyr::select(- .data$id) %>% 
       dplyr::summarise_all(mean, na.rm = TRUE)
   )
 }

@@ -45,7 +45,7 @@ test_that("changing doubles", {
       c(60, 61),
       dbl_change = TRUE,
       min_octave = -1, max_octave = 0,
-      dbl_min = 2, dbl_max = 4),
+      min_notes = 2, max_notes = 4),
     list(
       c(48, 49),
       c(48, 61),

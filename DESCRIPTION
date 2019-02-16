@@ -1,15 +1,16 @@
 Package: voicer
-Title: Finding Optimal Voicings for Chord Sequences
+Title: Analyzing and Generating Chord Voicings
 Version: 0.0.0.9004
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
-Description: Chord sequences can be voiced in different ways, some better than others. This package tries to find optimal voicings for chord sequences.
+Description: This package supports the analysis and generation of voicings for chord sequences.
 Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat (>= 2.0.0),
-    hcorp
+    hcorp,
+    Rdpack
 RoxygenNote: 6.1.1
 Imports: 
     seqopt (>= 0.1.0),
@@ -24,9 +25,14 @@ Imports:
     dplyr,
     plyr,
     glue,
-    mclogit
+    mclogit,
+    memoise,
+    tibble,
+    rlang,
+    methods
 URL: https://github.com/pmcharrison/voicer
 BugReports: https://github.com/pmcharrison/voicer/issues
 Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/incon, pmcharrison/hcorp
 LinkingTo: 
     Rcpp
+RdMacros: Rdpack

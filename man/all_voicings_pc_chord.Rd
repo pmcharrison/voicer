@@ -4,11 +4,21 @@
 \alias{all_voicings_pc_chord}
 \title{All voicings (pc_chord)}
 \usage{
-all_voicings_pc_chord(x, min_octave, max_octave, dbl_change, dbl_min,
-  dbl_max)
+all_voicings_pc_chord(x, min_octave, max_octave, dbl_change, min_notes,
+  max_notes)
 }
 \arguments{
 \item{x}{Object to voice.}
+
+\item{min_octave}{See \code{\link{voice_opt}}.}
+
+\item{max_octave}{See \code{\link{voice_opt}}.}
+
+\item{dbl_change}{See \code{\link{voice_opt}}.}
+
+\item{min_notes}{See \code{\link{voice_opt}}.}
+
+\item{max_notes}{See \code{\link{voice_opt}}.}
 }
 \value{
 A list of possible voicings.

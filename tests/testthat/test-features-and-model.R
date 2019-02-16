@@ -36,9 +36,8 @@ test_that("testing features and modelling", {
                              revoice_from = "pc_set",
                              min_octave = -2,
                              max_octave = 1,
-                             dbl_change = TRUE,
-                             dbl_min = 3,
-                             dbl_max = 4,
+                             min_notes = 3,
+                             max_notes = 4,
                              features = voice_features()[c(
                                "hutch_78", "vl_dist", "melody_dist", "outer_parallels"
                              )],
@@ -94,7 +93,8 @@ test_that("check_revoice_options", {
                         revoice_from = "pc_set",
                         min_octave = 0,
                         max_octave = 1,
-                        dbl_change = FALSE,
+                        min_notes = 1,
+                        max_notes = 5,
                         verbose = interactive()),
     "corpus has minimum pitch of 48 which cannot be reproduced with min_octave = 0")
   expect_error(
@@ -102,28 +102,25 @@ test_that("check_revoice_options", {
                         revoice_from = "pc_set",
                         min_octave = -1,
                         max_octave = 1,
-                        dbl_change = TRUE,
-                        dbl_min = 2,
-                        dbl_max = 3,
+                        min_notes = 2,
+                        max_notes = 3,
                         verbose = interactive()),
-    "corpus has minimum chord size of 1 which cannot be reproduced with dbl_min = 2")
+    "corpus has minimum chord size of 1 which cannot be reproduced with min_notes = 2")
   expect_error(
     get_corpus_features(corpus,
                         revoice_from = "pc_set",
                         min_octave = -1,
                         max_octave = 1,
-                        dbl_change = TRUE,
-                        dbl_min = 1,
-                        dbl_max = 2,
+                        min_notes = 1,
+                        max_notes = 2,
                         verbose = interactive()),
-    "corpus has maximum chord size of 3 which cannot be reproduced with dbl_max = 2")
+    "corpus has maximum chord size of 3 which cannot be reproduced with max_notes = 2")
   corpus <- list(list(c(48, 60, 64), c(50, 60, 63), c(73)))
   expect_error(
     get_corpus_features(corpus,
                         revoice_from = "pc_set",
                         min_octave = -1,
                         max_octave = 0,
-                        dbl_change = FALSE,
                         verbose = interactive()),
     "corpus has maximum pitch of 73 which cannot be reproduced with max_octave = 0")
   # This should work without an error
@@ -131,6 +128,7 @@ test_that("check_revoice_options", {
                       revoice_from = "pc_set",
                       min_octave = -1,
                       max_octave = 1,
-                      dbl_change = FALSE,
+                      min_notes = 1,
+                      max_notes = 5,
                       verbose = interactive())
 })

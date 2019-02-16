@@ -10,7 +10,7 @@ cheung_2019_opt <- function(verbose = TRUE) {
             min_octave = -2L,
             max_octave = 1L,
             dbl_change = FALSE,
-            dbl_min = 2L,
-            dbl_max = 4L,
+            min_notes = 2L,
+            max_notes = 4L,
             verbose = verbose)
 }

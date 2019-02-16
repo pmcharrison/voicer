@@ -1,25 +1,82 @@
-#' @param min_octave Integerish scalar;
-#' the minimum octave allowed in the voicing,
+#' Voicing options
+#' 
+#' Defines a list of options to be passed to \code{\link{voice}}.
+#' 
+#' @param min_octave 
+#' (Integerish scalar)
+#' The minimum octave allowed in the voicing,
 #' expressed relative to middle C (MIDI note 60).
 #' For example, -1 identifies the octave ranging from one octave below middle C
 #' to the B below middle C.
-#' @param max_octave Integerish scalar;
-#' the maximum octave allowed in the voicing,
+#' 
+#' @param max_octave 
+#' (Integerish scalar)
+#' The maximum octave allowed in the voicing,
 #' expressed relative to middle C (MIDI note 60).
 #' For example, 0 identifies the octave ranging from middle C
 #' to the B 11 semitones above.
-#' @param dbl_change Is it permitted to change the doubling of the chords,
+#' 
+#' @param dbl_change 
+#' (Logical scalar)
+#' Is it permitted to change the doubling of the chords,
 #' whether by adding duplicated pitch classes or removing duplicated pitch classes?
-#' @param dbl_min If \code{dbl_change} is \code{TRUE},
-#' the minimum allowed number of notes in the voiced chords.
-#' @param dbl_max If \code{dbl_change} is \code{TRUE},
-#' the maximum allowed number of notes in the voiced chords.
+#' 
+#' @param min_notes 
+#' (Integerish scalar)
+#' Sets the minimum allowed number of notes in the voiced chords;
+#' ignored if \code{dbl_change = FALSE}.
+#' 
+#' @param max_notes 
+#' (Integerish scalar)
+#' Sets the maximum allowed number of notes in the voiced chords;
+#' ignored if \code{dbl_change = FALSE}.
+#' 
+#' @param features
+#' A named list of features to apply to chord transitions,
+#' defaulting to a list created by \code{\link{voice_features}}.
+#' Any new features must be created using \code{\link[seqopt]{cost_fun}},
+#' and take chords as arguments,
+#' where the chords are represented as ordered numeric vectors 
+#' of MIDI note numbers.
+#' 
+#' @param weights
+#' A numeric vector of weights mapping to the respective elements
+#' of \code{features} in their original order.
+#' This vector need not be named,
+#' but an error will be thrown if names are provided
+#' and they do not match with those of \code{features}.
+#' 
+#' @param exp_cost
+#' (Logical scalar)
+#' Experimental - passed to \code{\link[seqopt]{seq_opt}},
+#' thereby determining whether the linear predictor is exponentiated
+#' when computing a sequence's cost.
+#' 
+#' @param norm_cost
+#' (Logical scalar)
+#' Experimental - passed to \code{\link[seqopt]{seq_opt}},
+#' thereby determining whether the (possibly exponentiated) linear predictor 
+#' is normalized over all possible continuations
+#' when computing a sequence's cost.
+#' 
+#' @param log_cost
+#' (Logical scalar)
+#' Experimental - passed to \code{\link[seqopt]{seq_opt}},
+#' thereby determining whether to take the logarithm of the
+#' (possibly exponentiated, possibly normalized) linear predictor 
+#' when computing a sequence's cost.
+#' 
+#' @param verbose
+#' (Logical scalar)
+#' Determines whether progress messages are printed during the 
+#' function's execution.
+#' 
 #' @export
 voice_opt <- function(min_octave = -2L,
                       max_octave = 1L,
                       dbl_change = TRUE,
-                      dbl_min = 1L,
-                      dbl_max = 4L,
+                      min_notes = 1L,
+                      max_notes = 4L,
                       features = voice_features(),
                       weights = voice_default_weights,
                       exp_cost = FALSE,
@@ -31,7 +88,7 @@ voice_opt <- function(min_octave = -2L,
   check_weight_consistency(weights, features)
   
   stopifnot(min_octave <= max_octave)
-  stopifnot(dbl_min <= dbl_max)
+  stopifnot(min_notes <= max_notes)
   as.list(environment())
 }
 
@@ -67,6 +124,21 @@ format_weights.voicer_model <- function(x) {
   format_weights(x$weights)
 }
 
+#' Default weights
+#' 
+#' Provides the default regression weights for the features 
+#' listed in \code{\link{voice_features}}.
+#' These were optimized on the \code{\link[hcorp]{bach_chorales_1}} dataset.
+#' 
+#' The object constitutes a named numeric vector,
+#' ordered to match \code{\link{voice_features}},
+#' where the names identify the features and the
+#' values correspond to the regression weights.
+#' These weights are suitable for passing to the \code{weights} argument
+#' of \code{\link{voice_opt}}.
+#' 
+#' @docType data
+#' @keywords data
 #' @export
 voice_default_weights <- c(
   any_parallels = -2.48914450280972, 
