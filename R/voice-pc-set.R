@@ -11,7 +11,7 @@ voice.vec_pc_set <- function(x, opt = voice_opt()) {
   if (any(purrr::map_lgl(y, function(z) length(z) == 1L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y,
-                  cost_funs = opt$cost_funs,
+                  cost_funs = opt$features,
                   weights = opt$weights,
                   minimise = FALSE,
                   exp_cost = opt$exp_cost,

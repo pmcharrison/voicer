@@ -6,7 +6,7 @@ get_corpus_features <- function(x,
                                 dbl_change,
                                 dbl_min = NA,
                                 dbl_max = NA,
-                                features = voice_cost_funs(),
+                                features = voice_features(),
                                 verbose = TRUE) {
   checkmate::qassert(verbose, "B1")
   stopifnot(!is.null(names(features)),

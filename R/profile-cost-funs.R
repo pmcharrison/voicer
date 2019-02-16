@@ -1,5 +1,5 @@
 #' @export
-profile_cost_funs <- function(random = TRUE, funs = voice_cost_funs()) {
+profile_features <- function(random = TRUE, features = voice_features()) {
   if (random) {
     a <- sort(sample(0:11, size = 3))
     b <- sort(sample(0:11, size = 3))
@@ -22,7 +22,7 @@ profile_cost_funs <- function(random = TRUE, funs = voice_cost_funs()) {
                            dbl_max = 4)[[1]]
 
   seqopt::cost_by_prev_state(x, y,
-                             cost_funs = funs,
+                             cost_funs = features,
                              weights = rep(1, times = length(funs)),
                              exp_cost = FALSE,
                              profile = TRUE) %>%

@@ -5,7 +5,7 @@ test_that("examples", {
                         c(59, 63, 64, 66))
 
   res <- get_features_for_continuations(
-    voice_cost_funs(),
+    voice_features(),
     context = c(60, 64, 67),
     continuations = continuations)
 

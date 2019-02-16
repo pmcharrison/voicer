@@ -39,7 +39,7 @@ test_that("testing features and modelling", {
                              dbl_change = TRUE,
                              dbl_min = 3,
                              dbl_max = 4,
-                             features = voice_cost_funs()[c(
+                             features = voice_features()[c(
                                "hutch_78", "vl_dist", "melody_dist", "outer_parallels"
                              )],
                              verbose = interactive())

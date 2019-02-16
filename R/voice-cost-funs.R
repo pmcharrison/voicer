@@ -1,5 +1,5 @@
 #' @export
-voice_cost_funs <- function(
+voice_features <- function(
   top = 72,
   middle = 60,
   bottom = 48,
