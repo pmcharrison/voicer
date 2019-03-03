@@ -1,4 +1,4 @@
-.hutch_78 <- function(x) incon::incon(x, model = "hutch_78_roughness")
+.hutch_78 <- function(x) dycon::roughness_hutch(x)
 .hutch_78 <- memoise::memoise(.hutch_78)
 
 
@@ -6,7 +6,7 @@
 #' 
 #' Estimates the dissonance of a chord voicing using 
 #' Hutchinson and Knopoff's (1978) algorithm as imported 
-#' from the \code{\link{incon}} package.
+#' from the \code{\link{dycon}} package.
 #' The function is memoized to make repeated calls more efficient.
 #' 
 #' @param x 

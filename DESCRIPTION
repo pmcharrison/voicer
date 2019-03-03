@@ -16,7 +16,7 @@ Imports:
     seqopt (>= 0.1.0),
     magrittr,
     gtools (>= 3.8.1),
-    incon,
+    dycon,
     hrep,
     checkmate,
     minVL,
@@ -32,7 +32,7 @@ Imports:
     methods
 URL: https://github.com/pmcharrison/voicer
 BugReports: https://github.com/pmcharrison/voicer/issues
-Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/incon, pmcharrison/hcorp
+Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/dycon, pmcharrison/hcorp
 LinkingTo: 
     Rcpp
 RdMacros: Rdpack

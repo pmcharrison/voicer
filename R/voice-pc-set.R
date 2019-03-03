@@ -42,7 +42,7 @@ all_voicings_pc_set <- function(x,
   stopifnot(!anyDuplicated(x))
   if (dbl_change && max_notes < length(x))
     stop("cannot voice this pitch-class set with ",
-         min_notes, " notes without omitting pitch classes")
+         max_notes, " note(s) without omitting pitch classes")
   sizes <- if (dbl_change)
     seq(from = pmax(length(x),
                     min_notes),
