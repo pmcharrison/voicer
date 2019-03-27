@@ -1,12 +1,12 @@
 
 # voicer
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 Chord voicing is the art of assigning pitch heights to pitch classes.
 This package, `voicer`, optimises the voicings of chord sequences
 according to an objective cost function. The Viterbi algorithm is used
 to guarantee solution optimality.
-
-Status: **pre-alpha**
 
 ## Example usage
 
@@ -29,7 +29,7 @@ library(voicer)
 
 pc_set(c(0, 4, 7))
 #> Pitch-class set: 0 4 7
-pc_chord(4, c(0, 4, 7))
+pc_chord(c(4, 0, 7))
 #> Pitch-class chord: [4] 0 7
 pi_chord(c(60, 64, 67))
 #> Pitch chord: 60 64 67
@@ -55,66 +55,39 @@ y
 #> Vector of type 'pi_chord', length = 4
 as.list(y)
 #> [[1]]
-#> Pitch chord: 43 64 72
+#> Pitch chord: 48 52 67 72
 #> 
 #> [[2]]
-#> Pitch chord: 45 65 72
+#> Pitch chord: 48 53 69 72
 #> 
 #> [[3]]
-#> Pitch chord: 43 62 71
+#> Pitch chord: 50 55 67 71
 #> 
 #> [[4]]
-#> Pitch chord: 43 64 72
+#> Pitch chord: 52 55 67 72
 ```
 
-We can do the same for vectors of type `pc_chord` and `pi_chord`.
+We can do the same for vectors of type `pc_chord`.
 
 ``` r
-list(pc_chord(0, c(4, 7)), 
-     pc_chord(9, c(0, 5)),
-     pc_chord(7, c(2, 11)), 
-     pc_chord(0, c(4, 7))) %>% 
+list(pc_chord(c(0, 4, 7)), 
+     pc_chord(c(9, 0, 5)),
+     pc_chord(c(7, 2, 11)), 
+     pc_chord(c(0, 4, 7))) %>% 
   vec("pc_chord") %>% 
   voice() %>% 
   as.list()
 #> [[1]]
-#> Pitch chord: 48 55 76
+#> Pitch chord: 60 64 67 72
 #> 
 #> [[2]]
-#> Pitch chord: 45 60 77
+#> Pitch chord: 57 60 65 72
 #> 
 #> [[3]]
-#> Pitch chord: 43 59 74
+#> Pitch chord: 55 62 67 71
 #> 
 #> [[4]]
-#> Pitch chord: 48 55 76
+#> Pitch chord: 60 64 67 72
 ```
 
-By default, revoicing chords of type `pi_chord` preserves the
-pitch-class of the bass note. To allow different inversions, you can
-first convert your `pi_chord` objects to `pc_set` objects.
-
-``` r
-list(pi_chord(c(60, 64, 67)), 
-     pi_chord(c(60, 65, 69)),
-     pi_chord(c(62, 67, 71)), 
-     pi_chord(c(60, 64, 67))) %>% 
-  vec("pi_chord") %>% 
-  voice() %>% 
-  as.list()
-#> [[1]]
-#> Pitch chord: 48 55 76
-#> 
-#> [[2]]
-#> Pitch chord: 48 57 77
-#> 
-#> [[3]]
-#> Pitch chord: 50 59 79
-#> 
-#> [[4]]
-#> Pitch chord: 48 52 79
-```
-
-By default, revoicing chords of type `pi_chord` also preserves the
-number of occurrences of each pitch class in the chord. This, and other
-behaviours, can be changed using the `opt` argument to `voice()`.
+See `?voice` for more details.
