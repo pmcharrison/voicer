@@ -7,7 +7,7 @@
 voice_opt(min_octave = -2L, max_octave = 1L, dbl_change = TRUE,
   min_notes = 1L, max_notes = 4L, features = voice_features(),
   weights = voice_default_weights, exp_cost = FALSE,
-  norm_cost = FALSE, log_cost = FALSE, verbose = TRUE)
+  norm_cost = FALSE, log_cost = FALSE, verbose = interactive())
 }
 \arguments{
 \item{min_octave}{(Integerish scalar)

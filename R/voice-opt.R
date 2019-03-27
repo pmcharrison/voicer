@@ -82,7 +82,7 @@ voice_opt <- function(min_octave = -2L,
                       exp_cost = FALSE,
                       norm_cost = FALSE,
                       log_cost = FALSE,
-                      verbose = TRUE) {
+                      verbose = interactive()) {
   
   weights <- format_weights(weights)
   check_weight_consistency(weights, features)
