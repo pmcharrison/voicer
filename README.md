@@ -8,6 +8,7 @@ status](https://travis-ci.org/pmcharrison/voicer.svg?branch=master)](https://tra
 status](https://ci.appveyor.com/api/projects/status/github/pmcharrison/voicer?branch=master&svg=true)](https://ci.appveyor.com/project/pmcharrison/voicer)
 [![Coverage
 status](https://coveralls.io/repos/github/pmcharrison/voicer/badge.svg)](https://coveralls.io/r/pmcharrison/voicer?branch=master)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2613565.svg)](https://doi.org/10.5281/zenodo.2613565)
 
 Chord voicing is the art of assigning pitch heights to pitch classes.
 This package, `voicer`, optimises the voicings of chord sequences
