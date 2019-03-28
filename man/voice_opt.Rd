@@ -45,7 +45,10 @@ of MIDI note numbers.}
 of \code{features} in their original order.
 This vector need not be named,
 but an error will be thrown if names are provided
-and they do not match with those of \code{features}.}
+and they do not match with those of \code{features}.
+Alternatively, it is possible to pass a voicer model
+as created by \code{\link{model_features}},
+or the \code{weights} slot of such a model.}
 
 \item{exp_cost}{(Logical scalar)
 Experimental - passed to \code{\link[seqopt]{seq_opt}},
