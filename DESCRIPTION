@@ -1,6 +1,6 @@
 Package: voicer
 Title: Analyzing and Generating Chord Voicings
-Version: 0.0.0.9005
+Version: 0.1.0
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
 Description: This package supports the analysis and generation of voicings for chord sequences.
 Depends: R (>= 3.4.0)
