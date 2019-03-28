@@ -33,7 +33,12 @@ Imports:
     methods
 URL: https://github.com/pmcharrison/voicer
 BugReports: https://github.com/pmcharrison/voicer/issues
-Remotes: pmcharrison/seqopt, pmcharrison/hrep, pmcharrison/dycon, pmcharrison/hcorp
+Remotes: 
+    pmcharrison/seqopt, 
+    pmcharrison/hrep,
+    pmcharrison/dycon,
+    pmcharrison/hcorp,
+    pmcharrison/minVL
 LinkingTo: 
     Rcpp
 RdMacros: Rdpack
