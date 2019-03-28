@@ -1,3 +1,6 @@
+^appveyor\.yml$
+^\.travis\.yml$
+^README_cache$
 ^\.cache$
 ^cache$
 ^LICENSE\.md$

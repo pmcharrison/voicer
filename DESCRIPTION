@@ -10,7 +10,8 @@ LazyData: true
 Suggests: 
     testthat (>= 2.0.0),
     hcorp,
-    Rdpack
+    Rdpack,
+    covr
 RoxygenNote: 6.1.1
 Imports: 
     seqopt (>= 0.1.0),

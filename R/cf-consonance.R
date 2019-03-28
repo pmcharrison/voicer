@@ -6,7 +6,7 @@
 #' 
 #' Estimates the dissonance of a chord voicing using 
 #' Hutchinson and Knopoff's (1978) algorithm as imported 
-#' from the \code{\link{dycon}} package.
+#' from the \code{dycon} package.
 #' The function is memoized to make repeated calls more efficient.
 #' 
 #' @param x 
