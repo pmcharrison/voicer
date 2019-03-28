@@ -9,7 +9,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat (>= 2.0.0),
-    hcorp,
+    hcorp (>= 0.3.0),
     Rdpack,
     covr
 RoxygenNote: 6.1.1
