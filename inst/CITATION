@@ -1,0 +1,10 @@
+citEntry(entry = "Article",
+         author = personList(as.person("Peter M. C. Harrison"),
+                             as.person("Marcus T. Pearce")),
+         title = "A computational model for the analysis and generation of chord voicings",
+         journal = "PsyArXiv", year = 2019,
+         doi = "10.31234/osf.io/wrgj7",
+         textVersion = paste(
+           "Harrison, P. M C., & Pearce, M. T. (2019).",
+           "A computational model for the analysis and generation of chord voicings.",
+           "PsyArXiv. https://doi.org/10.31234/osf.io/wrgj7"))

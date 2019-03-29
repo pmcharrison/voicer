@@ -28,6 +28,13 @@ This package, `voicer`,
 optimises the voicings of chord sequences according to an objective cost function.
 The Viterbi algorithm is used to guarantee solution optimality.
 
+## Paper
+
+Harrison, P. M. C., & Pearce, M. T. (2019). 
+A computational model for the analysis and generation of chord voicings.
+*PsyArXiv*. 
+[doi:10.31234/osf.io/wrgj7](https://doi.org/10.31234/osf.io/wrgj7)
+
 ## Example usage
 
 `voice` is the main function to use.
