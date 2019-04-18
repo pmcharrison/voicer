@@ -21,6 +21,15 @@ Harrison, P. M. C., & Pearce, M. T. (2019). A computational model for
 the analysis and generation of chord voicings. *PsyArXiv*.
 [doi:10.31234/osf.io/wrgj7](https://doi.org/10.31234/osf.io/wrgj7)
 
+## Installation
+
+To install from GitHub:
+
+``` r
+if (!require(devtools)) install.packages("devtools")
+devtools::install_github("pmcharrison/voicer")
+```
+
 ## Example usage
 
 `voice` is the main function to use. We pass `voice` vectors of chords
