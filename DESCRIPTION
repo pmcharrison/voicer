@@ -8,10 +8,11 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat (>= 2.0.0),
+    testthat (>= 2.1.0),
     hcorp (>= 0.3.0),
     Rdpack,
-    covr
+    covr,
+    usethis
 RoxygenNote: 6.1.1
 Imports: 
     seqopt (>= 0.1.0),
