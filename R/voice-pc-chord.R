@@ -1,4 +1,8 @@
-voice.vec_pc_chord <- function(x, opt = voice_opt()) {
+voice.vec_pc_chord <- function(x, 
+                               opt = voice_opt(),
+                               fix_melody = NULL, 
+                               fix_content = NULL,
+                               fix_chords = NULL) {
   if (any(purrr::map_lgl(x, function(z) length(z) == 0L)))
     stop("empty chords not permitted")
   if (opt$verbose) message("Enumerating all possible chord voicings...")

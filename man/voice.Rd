@@ -4,7 +4,8 @@
 \alias{voice}
 \title{Voice}
 \usage{
-voice(x, opt = voice_opt())
+voice(x, opt = voice_opt(), fix_melody = NULL, fix_content = NULL,
+  fix_chords = NULL)
 }
 \arguments{
 \item{x}{Chord sequence to voice.
@@ -17,6 +18,22 @@ the \code{hrep} package, namely
 See \bold{Note} for more information.}
 
 \item{opt}{A list of options as created by \code{\link{voice_opt}}.}
+
+\item{fix_melody}{(NULL or numeric vector)
+If not NULL, a numeric vector specifying the desired melody notes (i.e. top line)
+for the voicing, as MIDI pitches.
+The ith element should correspond to the melody note for the ith chord of x.
+NA values mean that the melody is unconstrained.}
+
+\item{fix_content}{(NULL or list)
+If not NULL, a list of potentially empty numeric vectors specifying pitches 
+that must be included in the corresponding chords of x.
+Can be used to produce melodies internal to the texture.}
+
+\item{fix_chords}{(NULL or list)
+If not NULL, a list of voicings to fix in advance within the generated result,
+each given as numeric vectors of MIDI pitches.
+A NULL element means that the voicing for the corresponding chord is unconstrained.}
 }
 \value{
 A voiced chord sequence,
