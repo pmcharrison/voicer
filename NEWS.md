@@ -1,3 +1,5 @@
+# voicer 0.3.0
+
 - Added `fix_melody` argument, allowing the user to prespecify a melody line.
 - Added `fix_content` argument, allowing the user to mandate that the 
 voicings contain specific pitch content.
