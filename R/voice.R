@@ -28,21 +28,18 @@
 #' A list of options as created by \code{\link{voice_opt}}.
 #' 
 #' @param fix_melody
-#' (NULL or numeric vector)
-#' If not NULL, a numeric vector specifying the desired melody notes (i.e. top line)
+#' A numeric vector specifying the desired melody notes (i.e. top line)
 #' for the voicing, as MIDI pitches.
 #' The ith element should correspond to the melody note for the ith chord of x.
 #' NA values mean that the melody is unconstrained.
 #' 
 #' @param fix_content
-#' (NULL or list)
-#' If not NULL, a list of potentially empty numeric vectors specifying pitches 
+#' A list of potentially empty numeric vectors specifying pitches 
 #' that must be included in the corresponding chords of x.
 #' Can be used to produce melodies internal to the texture.
 #' 
 #' @param fix_chords
-#' (NULL or list)
-#' If not NULL, a list of voicings to fix in advance within the generated result,
+#' A list of voicings to fix in advance within the generated result,
 #' each given as numeric vectors of MIDI pitches.
 #' A NULL element means that the voicing for the corresponding chord is unconstrained.
 #' 
@@ -66,22 +63,19 @@
 #' @export
 voice <- function(x, 
                   opt = voice_opt(), 
-                  fix_melody = NULL, 
-                  fix_content = NULL,
-                  fix_chords = NULL) {
-  if (!(is.null(fix_melody) ||
-        (is.numeric(fix_melody) && 
-         length(fix_melody) == length(x))))
+                  fix_melody = rep(NA_integer_, times = length(x)), 
+                  fix_content = rep(list(), times = length(x)),
+                  fix_chords = vector("list", length(x))) {
+  if (!(is.numeric(fix_melody) && 
+        length(fix_melody) == length(x)))
     stop("fix_melody must either be NULL or a numeric vector of same length as x")
   
-  if (!(is.null(fix_content) ||
-        (is.list(fix_content) && 
-         length(fix_content) == length(x))))
+  if (!(is.list(fix_content) && 
+        length(fix_content) == length(x)))
     stop("fix_content must either be NULL or a list of same length as x")
   
-  if (!(is.null(fix_chords) ||
-        (is.list(fix_chords) && 
-         length(fix_chords) == length(x))))
+  if (!(is.list(fix_chords) && 
+        length(fix_chords) == length(x)))
     stop("fix_chords must either be NULL or a list of same length as x")
   
   UseMethod("voice")
