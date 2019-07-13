@@ -5,7 +5,8 @@
 \title{All voicings (pitch-class set)}
 \usage{
 all_voicings_pc_set(x, min_octave, max_octave, dbl_change, min_notes,
-  max_notes)
+  max_notes, fix_melody = NA_integer_, fix_content = integer(),
+  fix_chord = NULL)
 }
 \arguments{
 \item{x}{Pitch-class set to voice.}
@@ -19,6 +20,17 @@ all_voicings_pc_set(x, min_octave, max_octave, dbl_change, min_notes,
 \item{min_notes}{See \code{\link{voice_opt}}.}
 
 \item{max_notes}{See \code{\link{voice_opt}}.}
+
+\item{fix_melody}{(Numeric scalar)
+Determines the MIDI pitch for the melody (i.e. the top note of the voicing).
+If NA, no constraint is applied.}
+
+\item{fix_content}{(Numeric vector)
+Specifies a set of MIDI pitches that must be contained in the voicing.}
+
+\item{fix_chord}{(NULL or numeric vector)
+If not NULL, the function returns just one voicing with the MIDI pitches
+specified in this vector.}
 }
 \value{
 A list of possible voicings.
