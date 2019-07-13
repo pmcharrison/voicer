@@ -5,7 +5,7 @@
 \title{Voice}
 \usage{
 voice(x, opt = voice_opt(), fix_melody = rep(NA_integer_, times =
-  length(x)), fix_content = rep(integer(), times = length(x)),
+  length(x)), fix_content = lapply(x, function(...) integer()),
   fix_chords = vector("list", length(x)))
 }
 \arguments{
@@ -31,7 +31,11 @@ Can be used to produce melodies internal to the texture.}
 
 \item{fix_chords}{A list of voicings to fix in advance within the generated result,
 each given as numeric vectors of MIDI pitches.
-A NULL element means that the voicing for the corresponding chord is unconstrained.}
+A NULL element means that the voicing for the corresponding chord is unconstrained.
+Note that specifying a voicing manually overrides all other voicing options
+(e.g. range limits),
+and the voicing will be accepted even if it is incompatible
+with the corresponding element of x.}
 }
 \value{
 A voiced chord sequence,
@@ -58,12 +62,26 @@ by setting \code{dbl_change = TRUE} in \code{\link{voice_opt}}.
 \examples{
 library(magrittr)
 library(hrep)
-list(
+chords <- list(
   pc_chord(c(0, 4, 7)),
   pc_chord(c(0, 5, 9)),
   pc_chord(c(2, 7, 11))
 ) \%>\%
-  vec("pc_chord") \%>\%
-  voice(voice_opt(min_notes = 3, max_notes = 3))
+  vec("pc_chord")
+  
+voice(chords, 
+      voice_opt(min_notes = 3, max_notes = 3))
+      
+voice(chords, 
+      voice_opt(min_notes = 3, max_notes = 3), 
+      fix_melody = c(76, 77, 79))
+      
+voice(chords, 
+      voice_opt(min_notes = 3, max_notes = 4), 
+      fix_content = list(c(60, 72), c(65, 77), c(67, 79)))
+      
+voice(chords, 
+      voice_opt(min_notes = 3, max_notes = 3), 
+      fix_chords = list(NULL, c(53, 57, 60), NULL))  
 
 }

@@ -2,7 +2,7 @@
 voice.vec_pc_set <- function(x, 
                              opt = voice_opt(),
                              fix_melody = rep(NA_integer_, times = length(x)), 
-                             fix_content = rep(integer(), times = length(x)),
+                             fix_content = lapply(x, function(...) integer()),
                              fix_chords = vector("list", length(x))) {
   if (any(purrr::map_lgl(x, function(z) length(z) == 0L)))
     stop("empty pitch-class sets not permitted")
@@ -19,7 +19,7 @@ voice.vec_pc_set <- function(x,
     min_notes = opt$min_notes, 
     max_notes = opt$max_notes
   )
-  if (any(purrr::map_lgl(y, function(z) length(z) == 1L)))
+  if (any(purrr::map_lgl(y, function(z) length(z) == 0L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y,
                   cost_funs = opt$features,
@@ -66,7 +66,7 @@ all_voicings_pc_set <- function(x,
                                 fix_content = integer(),
                                 fix_chord = NULL) {
   if (!is.null(fix_chord)) return(check_fix_chord(fix_chord))
-  
+
   x <- as.numeric(x)
   checkmate::qassert(x, "N[0,12)")
   if (length(x) == 0L) stop("empty pitch-class sets not permitted")
@@ -100,7 +100,7 @@ check_fix_chord <- function(fix_chord) {
   if (!is.numeric(fix_chord)) stop("fix_chord must be NULL or numeric")
   if (anyDuplicated(fix_chord)) stop("fix_chord may not contain duplicates")
   if (anyNA(fix_chord)) stop("fix_chord may not contain NA values")
-  hrep::pi_chord(fix_chord)
+  list(hrep::pi_chord(fix_chord))
 }
 
 fix <- function(x, fix_melody, fix_content) {
