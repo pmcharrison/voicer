@@ -4,7 +4,9 @@
 \alias{all_voicings_pc_multiset}
 \title{All voicings (pitch-class multiset)}
 \usage{
-all_voicings_pc_multiset(x, min_octave, max_octave)
+all_voicings_pc_multiset(x, min_octave, max_octave,
+  fix_melody = NA_integer_, fix_content = integer(),
+  fix_chord = NULL)
 }
 \arguments{
 \item{x}{Pitch-class multiset to voice, expressed as a numeric vector
@@ -13,6 +15,17 @@ with potentially repeated elements.}
 \item{min_octave}{See \code{\link{voice_opt}}.}
 
 \item{max_octave}{See \code{\link{voice_opt}}.}
+
+\item{fix_melody}{(Numeric scalar)
+Determines the MIDI pitch for the melody (i.e. the top note of the voicing).
+If NA, no constraint is applied.}
+
+\item{fix_content}{(Numeric vector)
+Specifies a set of MIDI pitches that must be contained in the voicing.}
+
+\item{fix_chord}{(NULL or numeric vector)
+If not NULL, the function returns just one voicing with the MIDI pitches
+specified in this vector.}
 }
 \value{
 A list of possible voicings.

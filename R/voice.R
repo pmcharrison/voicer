@@ -64,19 +64,19 @@
 voice <- function(x, 
                   opt = voice_opt(), 
                   fix_melody = rep(NA_integer_, times = length(x)), 
-                  fix_content = rep(list(), times = length(x)),
+                  fix_content = rep(integer(), times = length(x)),
                   fix_chords = vector("list", length(x))) {
   if (!(is.numeric(fix_melody) && 
         length(fix_melody) == length(x)))
-    stop("fix_melody must either be NULL or a numeric vector of same length as x")
+    stop("fix_melody must be a numeric vector of same length as x")
   
   if (!(is.list(fix_content) && 
         length(fix_content) == length(x)))
-    stop("fix_content must either be NULL or a list of same length as x")
+    stop("fix_content must be a list of same length as x")
   
   if (!(is.list(fix_chords) && 
         length(fix_chords) == length(x)))
-    stop("fix_chords must either be NULL or a list of same length as x")
+    stop("fix_chords must be a list of same length as x")
   
   UseMethod("voice")
 }
@@ -84,9 +84,9 @@ voice <- function(x,
 #' @export
 voice.vec <- function(x, 
                       opt = voice_opt(),
-                      fix_melody = NULL, 
-                      fix_content = NULL,
-                      fix_chords = NULL) {
+                      fix_melody = rep(NA_integer_, times = length(x)), 
+                      fix_content = rep(integer(), times = length(x)),
+                      fix_chords = vector("list", length(x))) {
   if (length(x) == 0L) return(x)
   type <- hrep::type(x)
   checkmate::qassert(type, "S1")
@@ -101,9 +101,9 @@ voice.vec <- function(x,
 #' @export
 voice.coded_vec <- function(x, 
                             opt = voice_opt(),
-                            fix_melody = NULL, 
-                            fix_content = NULL,
-                            fix_chords = NULL) {
+                            fix_melody = rep(NA_integer_, times = length(x)), 
+                            fix_content = rep(integer(), times = length(x)),
+                            fix_chords = vector("list", length(x))) {
   voice(hrep::decode(x), 
         opt = opt,
         fix_melody = fix_melody, 

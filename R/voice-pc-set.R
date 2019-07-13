@@ -1,17 +1,24 @@
 #' @export
 voice.vec_pc_set <- function(x, 
                              opt = voice_opt(),
-                             fix_melody = NULL, 
-                             fix_content = NULL,
-                             fix_chords = NULL) {
+                             fix_melody = rep(NA_integer_, times = length(x)), 
+                             fix_content = rep(integer(), times = length(x)),
+                             fix_chords = vector("list", length(x))) {
   if (any(purrr::map_lgl(x, function(z) length(z) == 0L)))
     stop("empty pitch-class sets not permitted")
   if (opt$verbose) message("Enumerating all possible chord voicings...")
-  y <- purrr::map(x, function(pc_set) all_voicings_pc_set(
-    pc_set,
-    opt$min_octave, opt$max_octave,
-    opt$dbl_change, opt$min_notes, opt$max_notes
-  ))
+  y <- purrr::pmap(
+    list(x = x,
+         fix_melody = fix_melody,
+         fix_content = fix_content,
+         fix_chord = fix_chords),
+    all_voicings_pc_set,
+    min_octave = opt$min_octave, 
+    max_octave = opt$max_octave,
+    dbl_change = opt$dbl_change, 
+    min_notes = opt$min_notes, 
+    max_notes = opt$max_notes
+  )
   if (any(purrr::map_lgl(y, function(z) length(z) == 1L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y,
@@ -35,11 +42,31 @@ voice.vec_pc_set <- function(x,
 #' @param dbl_change See \code{\link{voice_opt}}.
 #' @param min_notes See \code{\link{voice_opt}}.
 #' @param max_notes See \code{\link{voice_opt}}.
+#' 
+#' @param fix_melody
+#' (Numeric scalar)
+#' Determines the MIDI pitch for the melody (i.e. the top note of the voicing).
+#' If NA, no constraint is applied.
+#' 
+#' @param fix_content
+#' (Numeric vector)
+#' Specifies a set of MIDI pitches that must be contained in the voicing.
+#' 
+#' @param fix_chord
+#' (NULL or numeric vector)
+#' If not NULL, the function returns just one voicing with the MIDI pitches
+#' specified in this vector.
+#' 
 #' @return A list of possible voicings.
 #' @export
 all_voicings_pc_set <- function(x,
                                 min_octave, max_octave,
-                                dbl_change, min_notes, max_notes) {
+                                dbl_change, min_notes, max_notes,
+                                fix_melody = NA_integer_, 
+                                fix_content = integer(),
+                                fix_chord = NULL) {
+  if (!is.null(fix_chord)) return(check_fix_chord(fix_chord))
+  
   x <- as.numeric(x)
   checkmate::qassert(x, "N[0,12)")
   if (length(x) == 0L) stop("empty pitch-class sets not permitted")
@@ -52,7 +79,7 @@ all_voicings_pc_set <- function(x,
                     min_notes),
         to = max_notes) else
           length(x)
-  purrr::map(sizes, function(size) {
+  res <- purrr::map(sizes, function(size) {
     n_extra <- size - length(x)
     if (n_extra == 0L) all_voicings_pc_multiset(x, min_octave, max_octave) else {
       extra <- gtools::combinations(n = length(x),
@@ -64,8 +91,23 @@ all_voicings_pc_set <- function(x,
       }) %>% unlist(recursive = FALSE)
     }
   }) %>% unlist(recursive = FALSE)
+  
+  fix(res, fix_melody, fix_content)
 }
 all_voicings_pc_set <- memoise::memoise(all_voicings_pc_set)
+
+check_fix_chord <- function(fix_chord) {
+  if (!is.numeric(fix_chord)) stop("fix_chord must be NULL or numeric")
+  if (anyDuplicated(fix_chord)) stop("fix_chord may not contain duplicates")
+  if (anyNA(fix_chord)) stop("fix_chord may not contain NA values")
+  hrep::pi_chord(fix_chord)
+}
+
+fix <- function(x, fix_melody, fix_content) {
+  if (!is.na(fix_melody)) x <- purrr::keep(x, function(z) z[length(z)] == fix_melody)
+  if (length(fix_content) > 0) x <- purrr::keep(x, function(z) all(fix_content %in% z))
+  x
+}
 
 #' All voicings (pitch-class multiset)
 #'
@@ -74,9 +116,31 @@ all_voicings_pc_set <- memoise::memoise(all_voicings_pc_set)
 #' with potentially repeated elements.
 #' @param min_octave See \code{\link{voice_opt}}.
 #' @param max_octave See \code{\link{voice_opt}}.
+#' 
+#' @param fix_melody
+#' (Numeric scalar)
+#' Determines the MIDI pitch for the melody (i.e. the top note of the voicing).
+#' If NA, no constraint is applied.
+#' 
+#' @param fix_content
+#' (Numeric vector)
+#' Specifies a set of MIDI pitches that must be contained in the voicing.
+#' 
+#' @param fix_chord
+#' (NULL or numeric vector)
+#' If not NULL, the function returns just one voicing with the MIDI pitches
+#' specified in this vector.
+#' 
 #' @return A list of possible voicings.
+#' 
 #' @export
-all_voicings_pc_multiset <- function(x, min_octave, max_octave) {
+all_voicings_pc_multiset <- function(x, 
+                                     min_octave, 
+                                     max_octave,
+                                     fix_melody = NA_integer_, 
+                                     fix_content = integer(),
+                                     fix_chord = NULL) {
+  if (!is.null(fix_chord)) return(check_fix_chord(fix_chord))
   x <- as.numeric(x)
   checkmate::qassert(x, "N[0,12)")
   if (min_octave > max_octave) stop("<min_octave> cannot be greater than <max_octave>")
@@ -88,6 +152,7 @@ all_voicings_pc_multiset <- function(x, min_octave, max_octave) {
     (function(y) purrr::map(seq_len(nrow(y)), function(i) sort(y[i, ] + x))) %>%
     purrr::keep(function(z) !anyDuplicated(z)) %>%
     unique %>%
-    purrr::map(hrep::pi_chord)
+    purrr::map(hrep::pi_chord) %>% 
+    fix(fix_melody, fix_content)
 }
 all_voicings_pc_multiset <- memoise::memoise(all_voicings_pc_multiset)

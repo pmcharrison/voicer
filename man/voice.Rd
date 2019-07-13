@@ -5,7 +5,7 @@
 \title{Voice}
 \usage{
 voice(x, opt = voice_opt(), fix_melody = rep(NA_integer_, times =
-  length(x)), fix_content = rep(list(), times = length(x)),
+  length(x)), fix_content = rep(integer(), times = length(x)),
   fix_chords = vector("list", length(x)))
 }
 \arguments{

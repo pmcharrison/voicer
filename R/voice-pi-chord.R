@@ -1,13 +1,17 @@
 #' @export
 voice.vec_pi_chord <- function(x, 
                                opt = voice_opt(),
-                               fix_melody = NULL, 
-                               fix_content = NULL,
-                               fix_chords = NULL) {
+                               fix_melody = rep(NA_integer_, times = length(x)), 
+                               fix_content = rep(integer(), times = length(x)),
+                               fix_chords = vector("list", length(x))) {
   if (any(purrr::map_lgl(x, function(z) length(z) == 0L)))
     stop("empty chords not permitted")
   if (opt$verbose) message("Enumerating all possible chord voicings...")
-  y <- all_voicings_vec_pi_chord(x, opt)
+  y <- all_voicings_vec_pi_chord(x, 
+                                 opt,
+                                 fix_melody = fix_melody, 
+                                 fix_content = fix_content,
+                                 fix_chords = fix_chords)
   if (any(purrr::map_lgl(y, function(z) length(z) == 0L)))
     stop("no legal revoicings found")
   seqopt::seq_opt(y,
@@ -21,10 +25,21 @@ voice.vec_pi_chord <- function(x,
     hrep::vec(type = "pi_chord")
 }
 
-all_voicings_vec_pi_chord <- function(x, opt) {
-  purrr::map(x, all_voicings_pi_chord,
-             opt$min_octave, opt$max_octave,
-             opt$dbl_change, opt$min_notes, opt$max_notes)
+all_voicings_vec_pi_chord <- function(x, 
+                                      opt,
+                                      fix_melody,
+                                      fix_content,
+                                      fix_chords) {
+  purrr::pmap(list(x = x,
+                   fix_melody = fix_melody,
+                   fix_content = fix_content,
+                   fix_chord = fix_chords),
+              all_voicings_pi_chord,
+              min_octave = opt$min_octave, 
+              max_octave = opt$max_octave,
+              dbl_change = opt$dbl_change, 
+              min_notes = opt$min_notes, 
+              max_notes = opt$max_notes)
 }
 
 #' All voicings (pi_chord)
@@ -48,11 +63,30 @@ all_voicings_vec_pi_chord <- function(x, opt) {
 #' @param min_notes See \code{\link{voice_opt}}.
 #' @param max_notes See \code{\link{voice_opt}}.
 #' 
+#' @param fix_melody
+#' (Numeric scalar)
+#' Determines the MIDI pitch for the melody (i.e. the top note of the voicing).
+#' If NA, no constraint is applied.
+#' 
+#' @param fix_content
+#' (Numeric vector)
+#' Specifies a set of MIDI pitches that must be contained in the voicing.
+#' 
+#' @param fix_chord
+#' (NULL or numeric vector)
+#' If not NULL, the function returns just one voicing with the MIDI pitches
+#' specified in this vector.
+#' 
 #' @return A list of possible voicings.
 #' @export
 all_voicings_pi_chord <- function(x,
                                   min_octave, max_octave,
-                                  dbl_change, min_notes, max_notes) {
+                                  dbl_change, min_notes, max_notes,
+                                  fix_melody = NA_integer_, 
+                                  fix_content = integer(),
+                                  fix_chord = NULL) {
+  if (!is.null(fix_chord)) return(check_fix_chord(fix_chord))
+  
   x <- as.numeric(x)
   if (length(x) == 0L) stop("empty chords not permitted")
   x <- sort(x)
@@ -61,10 +95,14 @@ all_voicings_pi_chord <- function(x,
     pc_set <- sort(unique(x %% 12))
     all_voicings_pc_set(pc_set,
                         min_octave, max_octave,
-                        dbl_change, min_notes, max_notes)
+                        dbl_change, min_notes, max_notes,
+                        fix_melody = fix_melody,
+                        fix_content = fix_content)
   } else {
     pc_multiset <- sort(x %% 12)
-    all_voicings_pc_multiset(pc_multiset, min_octave, max_octave)
+    all_voicings_pc_multiset(pc_multiset, min_octave, max_octave,
+                             fix_melody = fix_melody,
+                             fix_content = fix_content)
   }
   purrr::keep(x, function(z) (z[1] %% 12 == bass_pc))
 }
