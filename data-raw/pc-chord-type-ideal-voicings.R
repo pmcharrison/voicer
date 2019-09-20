@@ -20,7 +20,7 @@ generate_ideal_voicings <- function() {
   pc_chord_types <- hrep::list_chords("pc_chord_type")
   pc_chord_type_ideal_voicings <- plyr::llply(pc_chord_types,
                                               voice_pc_chord_type,
-                                              .progress = "text")
+                                              .progress = "time")
   usethis::use_data(pc_chord_type_ideal_voicings, overwrite = TRUE)
 }
 

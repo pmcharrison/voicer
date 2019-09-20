@@ -1,5 +1,4 @@
 library(hrep)
-library(magrittr)
 
 test_that("constraints", {
   chords <- list(pc_set(c(0, 4, 7)),
@@ -8,7 +7,9 @@ test_that("constraints", {
     vec("pc_set")
   
   for (format in c("pc_set", "pc_chord", "pi_chord")) {
-    input <- hrep::represent(chords, format)
+    input <- if (format == "pi_chord")
+      hrep::represent(chords, format, force = TRUE) else
+        hrep::represent(chords, format)
     
     x <- input %>% 
       voice(fix_melody = c(72, 74, 76))

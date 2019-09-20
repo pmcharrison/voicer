@@ -1,3 +1,7 @@
+# voicer 0.4.0
+
+- Updated to reflect new version of `hrep` package.
+
 # voicer 0.3.0
 
 - Added `fix_melody` argument, allowing the user to prespecify a melody line.

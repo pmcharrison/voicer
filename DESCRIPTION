@@ -1,6 +1,6 @@
 Package: voicer
 Title: Analyzing and Generating Chord Voicings
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
 Description: This package supports the analysis and generation of voicings for chord sequences.
 Depends: R (>= 3.4.0)
@@ -10,27 +10,27 @@ LazyData: true
 Suggests: 
     testthat (>= 2.1.0),
     hcorp (>= 0.3.0),
-    Rdpack,
-    covr,
-    usethis
+    Rdpack (>= 0.11.0),
+    covr (>= 3.2.1),
+    usethis (>= 1.5.0)
 RoxygenNote: 6.1.1
 Imports: 
     seqopt (>= 0.1.0),
-    magrittr,
+    magrittr (>= 1.5),
     gtools (>= 3.8.1),
-    dycon,
-    hrep,
-    checkmate,
-    minVL,
-    purrr,
-    Rcpp,
-    dplyr,
-    plyr,
-    glue,
-    mclogit,
-    memoise,
-    tibble,
-    rlang,
+    dycon (>= 0.2.0),
+    hrep (>= 0.10.0.9001),
+    checkmate (>= 1.9.4),
+    minVL (>= 0.3.0),
+    purrr (>= 0.3.2),
+    Rcpp (>= 1.0.1),
+    dplyr (>= 0.8.3),
+    plyr (>= 1.8.4),
+    glue (>= 1.3.1),
+    mclogit (>= 0.6.1),
+    memoise (>= 1.1.0),
+    tibble (>= 2.1.3),
+    rlang (>= 0.4.0),
     methods
 URL: https://github.com/pmcharrison/voicer
 BugReports: https://github.com/pmcharrison/voicer/issues
@@ -41,5 +41,5 @@ Remotes:
     pmcharrison/hcorp,
     pmcharrison/minVL
 LinkingTo: 
-    Rcpp
+    Rcpp (>= 1.0.1)
 RdMacros: Rdpack
